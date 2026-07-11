@@ -6,7 +6,8 @@ export const siteConfig = {
   url: "https://mohsinaalima.dev", // placeholder — update on deploy
   email: "mohsinaalima2006@gmail.com",
   github: "https://github.com/mohsinaalima",
-  linkedin: "https://linkedin.com/in/mohsina-alima",
+  linkedin:
+    "https://www.linkedin.com/in/mohsina-alima-b43a83395/?skipRedirect=true",
   resumeHref: "/resume.pdf", // drop the real resume PDF into /public
   availability: "Available for Summer 2027 internships",
 } as const;

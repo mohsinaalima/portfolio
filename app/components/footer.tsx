@@ -1,4 +1,4 @@
-import { siteConfig } from "@/app/config/site";
+import { siteConfig } from "@/config/site";
 
 export function Footer() {
   return (
@@ -8,7 +8,7 @@ export function Footer() {
           © {new Date().getFullYear()} {siteConfig.name}
         </p>
         <div className="flex gap-6">
-          <a
+          
             href={siteConfig.github}
             className="hover:text-text-primary"
             target="_blank"
@@ -16,7 +16,7 @@ export function Footer() {
           >
             GitHub
           </a>
-          <a
+          
             href={siteConfig.linkedin}
             className="hover:text-text-primary"
             target="_blank"
@@ -24,10 +24,7 @@ export function Footer() {
           >
             LinkedIn
           </a>
-          <a
-            href={`mailto:${siteConfig.email}`}
-            className="hover:text-text-primary"
-          >
+          <a href={`mailto:${siteConfig.email}`} className="hover:text-text-primary">
             Email
           </a>
         </div>
