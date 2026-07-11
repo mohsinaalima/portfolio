@@ -29,6 +29,7 @@ export type Project = {
   diagram?: {
     nodes: DiagramNode[];
     edges: DiagramEdge[];
+    viewBox?: string;
   };
 };
 

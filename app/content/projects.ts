@@ -1,10 +1,6 @@
 import type { Project } from "@/app/types";
 
-// Real project data, sourced directly from the resume — no invented specifics.
-// MedLens AI / HealthBridge are "in-progress" placeholders per
-// docs/mohsina-portfolio-design-strategy-v2.md §0 until real details exist.
-
-export const projects: Project[] = [
+export const projects = [
   {
     slug: "picscale",
     name: "PicScale",
@@ -31,6 +27,22 @@ export const projects: Project[] = [
     links: {
       github: "https://github.com/mohsinaalima",
     },
+    diagram: {
+      viewBox: "0 0 640 140",
+      nodes: [
+        { id: "browser", label: "browser", x: 40, y: 70 },
+        { id: "api", label: "api", x: 180, y: 70 },
+        { id: "worker", label: "worker", x: 320, y: 70 },
+        { id: "cloudinary", label: "cloudinary", x: 460, y: 70 },
+        { id: "db", label: "db", x: 600, y: 70 },
+      ],
+      edges: [
+        { from: "browser", to: "api" },
+        { from: "api", to: "worker" },
+        { from: "worker", to: "cloudinary" },
+        { from: "cloudinary", to: "db" },
+      ],
+    },
   },
   {
     slug: "ai-resume-analyzer",
@@ -45,16 +57,23 @@ export const projects: Project[] = [
       "Resume PDFs vary wildly in format and encoding. Built a multi-layer text extraction pipeline with pdfjs-dist to keep parsing consistent across that variation, rather than assuming a single clean format.",
     outcome:
       "A working drag-and-drop tool with global UI state managed through Zustand instead of prop drilling — keeps interactions responsive even on large documents, entirely client-side.",
-    tech: [
-      "React 19",
-      "TypeScript",
-      "Puter.js",
-      "pdfjs-dist",
-      "Zustand",
-      "Tailwind CSS",
-    ],
+    tech: ["React 19", "TypeScript", "Puter.js", "pdfjs-dist", "Zustand", "Tailwind CSS"],
     links: {
       github: "https://github.com/mohsinaalima",
+    },
+    diagram: {
+      viewBox: "0 0 620 140",
+      nodes: [
+        { id: "pdf", label: "pdf", x: 40, y: 70 },
+        { id: "parse", label: "parse", x: 220, y: 70 },
+        { id: "llm", label: "llm", x: 400, y: 70 },
+        { id: "stream", label: "stream", x: 580, y: 70 },
+      ],
+      edges: [
+        { from: "pdf", to: "parse" },
+        { from: "parse", to: "llm" },
+        { from: "llm", to: "stream" },
+      ],
     },
   },
   {
@@ -70,17 +89,20 @@ export const projects: Project[] = [
       "Structuring a MySQL schema that serves personalized learning feeds — user profiles, auth state, dynamic video content — without redundant joins slowing down every page load.",
     outcome:
       "A 'Cognitive Game Engine' and Watch History dashboard built with useState/useEffect, maintaining real-time game state and media progress across sessions without page reloads.",
-    tech: [
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "FastAPI",
-      "Python",
-      "MySQL",
-      "JWT",
-      "Google OAuth",
-    ],
+    tech: ["React", "Vite", "Tailwind CSS", "FastAPI", "Python", "MySQL", "JWT", "Google OAuth"],
     links: {},
+    diagram: {
+      viewBox: "0 0 600 140",
+      nodes: [
+        { id: "oauth", label: "oauth", x: 60, y: 70 },
+        { id: "jwt", label: "jwt", x: 300, y: 70 },
+        { id: "session", label: "session", x: 540, y: 70 },
+      ],
+      edges: [
+        { from: "oauth", to: "jwt" },
+        { from: "jwt", to: "session" },
+      ],
+    },
   },
   {
     slug: "medlens-ai",
@@ -96,4 +118,4 @@ export const projects: Project[] = [
     tagline: "Healthcare appointment platform",
     tech: [],
   },
-];
+] as const satisfies Project[];
