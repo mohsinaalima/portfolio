@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/app/components/icons";
 import { siteConfig } from "@/app/config/site";
 import { HeroGraphic } from "@/app/components/hero-graphic";
 
@@ -98,7 +99,7 @@ export function Hero() {
             aria-label='GitHub'
             className='transition-colors hover:text-text-primary'
           >
-            <Github size={18} strokeWidth={1.5} />
+            <GithubIcon size={18} />
           </a>
           <a
             href={siteConfig.linkedin}
@@ -107,7 +108,7 @@ export function Hero() {
             aria-label='LinkedIn'
             className='transition-colors hover:text-text-primary'
           >
-            <Linkedin size={18} strokeWidth={1.5} />
+            <LinkedinIcon size={18} />
           </a>
           <a
             href={`mailto:${siteConfig.email}`}
