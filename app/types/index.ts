@@ -10,6 +10,7 @@ export type DiagramEdge = {
   to: string;
 };
 
+
 export type ProjectStatus = "shipped" | "in-progress";
 
 export type Project = {
@@ -50,4 +51,10 @@ export type CurrentlyBuildingItem = {
   id: string;
   label: string;
   why: string;
+};
+
+export type WritingTopic = {
+  id: string;
+  title: string;
+  description: string;
 };
