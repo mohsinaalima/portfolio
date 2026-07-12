@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 type Node = { id: string; x: number; y: number; label: string };
@@ -30,7 +31,15 @@ function findNode(id: string) {
 }
 
 export function HeroGraphic({ className }: { className?: string }) {
+  const [mounted, setMounted] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent hydration mismatch by rendering a static shell until mounted
+  if (!mounted) return <svg viewBox='0 0 400 400' className={className} />;
 
   return (
     <svg

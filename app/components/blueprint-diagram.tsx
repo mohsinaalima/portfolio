@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   motion,
   AnimatePresence,
@@ -28,7 +28,13 @@ export function BlueprintDiagram({
   viewBox = "0 0 640 140",
   className,
 }: Props) {
+  const [mounted, setMounted] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const inView = useInView(svgRef, { once: true, margin: "-40px" });
   const [hovered, setHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -45,6 +51,9 @@ export function BlueprintDiagram({
   );
 
   const shouldReveal = prefersReducedMotion || inView;
+
+  // Prevent hydration mismatch by returning null until client-side mount
+  if (!mounted) return <svg viewBox={viewBox} className={className} />;
 
   return (
     <svg
@@ -120,7 +129,7 @@ export function BlueprintDiagram({
         </g>
       ))}
 
-      {!prefersReducedMotion && (
+      {!prefersReducedMotion && pathPoints.length > 0 && (
         <AnimatePresence>
           {hovered && (
             <motion.circle
