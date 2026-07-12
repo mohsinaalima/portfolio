@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -28,13 +28,7 @@ export function BlueprintDiagram({
   viewBox = "0 0 640 140",
   className,
 }: Props) {
-  const [mounted, setMounted] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const inView = useInView(svgRef, { once: true, margin: "-40px" });
   const [hovered, setHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -49,19 +43,18 @@ export function BlueprintDiagram({
     },
     [],
   );
+  const firstPoint = pathPoints[0];
 
-  const shouldReveal = prefersReducedMotion || inView;
-
-  // Prevent hydration mismatch by returning null until client-side mount
-  if (!mounted) return <svg viewBox={viewBox} className={className} />;
+  const dur = (base: number) => (prefersReducedMotion ? 0.01 : base);
+  const delay = (base: number) => (prefersReducedMotion ? 0 : base);
 
   return (
     <svg
       ref={svgRef}
       viewBox={viewBox}
       className={className}
-      role='img'
-      aria-label='Request flow diagram'
+      role="img"
+      aria-label="Request flow diagram"
       tabIndex={0}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -78,13 +71,13 @@ export function BlueprintDiagram({
             y1={from.y}
             x2={to.x}
             y2={to.y}
-            stroke='var(--color-border-hairline)'
+            stroke="var(--color-border-hairline)"
             strokeWidth={1}
-            initial={prefersReducedMotion ? false : { pathLength: 0 }}
-            animate={shouldReveal ? { pathLength: 1 } : {}}
+            initial={{ pathLength: 0 }}
+            animate={inView ? { pathLength: 1 } : { pathLength: 0 }}
             transition={{
-              duration: 0.7,
-              delay: prefersReducedMotion ? 0 : 0.15 * i,
+              duration: dur(0.7),
+              delay: delay(0.15 * i),
               ease: [0.22, 1, 0.36, 1],
             }}
           />
@@ -99,29 +92,29 @@ export function BlueprintDiagram({
             width={72}
             height={28}
             rx={8}
-            fill='var(--color-bg-surface)'
-            stroke='var(--color-accent-brass)'
+            fill="var(--color-bg-surface)"
+            stroke="var(--color-accent-brass)"
             strokeWidth={1.2}
-            initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
-            animate={shouldReveal ? { opacity: 1, scale: 1 } : {}}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{
-              duration: 0.4,
-              delay: prefersReducedMotion ? 0 : 0.1 + i * 0.12,
+              duration: dur(0.4),
+              delay: delay(0.1 + i * 0.12),
             }}
           />
           <motion.text
             x={node.x}
             y={node.y + 4}
-            textAnchor='middle'
-            fontFamily='var(--font-mono)'
-            fontSize='10'
-            letterSpacing='0.03em'
-            fill='var(--color-text-primary)'
-            initial={prefersReducedMotion ? false : { opacity: 0 }}
-            animate={shouldReveal ? { opacity: 1 } : {}}
+            textAnchor="middle"
+            fontFamily="var(--font-mono)"
+            fontSize="10"
+            letterSpacing="0.03em"
+            fill="var(--color-text-primary)"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : { opacity: 0 }}
             transition={{
-              duration: 0.4,
-              delay: prefersReducedMotion ? 0 : 0.2 + i * 0.12,
+              duration: dur(0.4),
+              delay: delay(0.2 + i * 0.12),
             }}
           >
             {node.label}
@@ -129,25 +122,31 @@ export function BlueprintDiagram({
         </g>
       ))}
 
-      {!prefersReducedMotion && pathPoints.length > 0 && (
+      {firstPoint && (
         <AnimatePresence>
           {hovered && (
             <motion.circle
-              key='pulse'
+              key="pulse"
               r={4}
-              fill='var(--color-accent-terracotta)'
-              initial={{ opacity: 0, cx: pathPoints[0].x, cy: pathPoints[0].y }}
-              animate={{
-                opacity: [0, 1, 1, 0],
-                cx: pathPoints.map((p) => p.x),
-                cy: pathPoints.map((p) => p.y),
-              }}
+              fill="var(--color-accent-terracotta)"
+              initial={{ opacity: 0, cx: firstPoint.x, cy: firstPoint.y }}
+              animate={
+                prefersReducedMotion
+                  ? { opacity: 0 }
+                  : {
+                      opacity: [0, 1, 1, 0],
+                      cx: pathPoints.map((p) => p.x),
+                      cy: pathPoints.map((p) => p.y),
+                    }
+              }
               exit={{ opacity: 0 }}
               transition={{
                 duration: Math.max(pathPoints.length * 0.5, 1.2),
                 repeat: Infinity,
                 ease: "linear",
-                times: pathPoints.map((_, i) => i / (pathPoints.length - 1)),
+                times: pathPoints.map((_, i) =>
+                  pathPoints.length > 1 ? i / (pathPoints.length - 1) : 0,
+                ),
               }}
             />
           )}

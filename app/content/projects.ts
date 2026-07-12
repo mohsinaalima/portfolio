@@ -110,6 +110,7 @@ export const projects = [
     status: "in-progress",
     tagline: "AI-powered medical report understanding — OCR + RAG",
     tech: ["OCR", "RAG", "Vector Search", "Gemini API"],
+    diagram: undefined,
   },
   {
     slug: "healthbridge",
@@ -117,5 +118,6 @@ export const projects = [
     status: "in-progress",
     tagline: "Healthcare appointment platform",
     tech: [],
+    diagram: undefined,
   },
 ] as const satisfies Project[];

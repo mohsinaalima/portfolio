@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { navItems, siteConfig } from "@/config/site";
+import { navItems, siteConfig } from "@/app/config/site";
 
 export function Nav() {
   const [hidden, setHidden] = useState(false);
@@ -32,23 +32,23 @@ export function Nav() {
         duration: prefersReducedMotion ? 0 : 0.3,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="fixed inset-x-0 top-0 z-50"
+      className='fixed inset-x-0 top-0 z-50'
     >
       <nav
-        aria-label="Primary"
-        className="container-page flex items-center justify-between py-4"
+        aria-label='Primary'
+        className='container-page flex items-center justify-between py-4'
       >
-        <div className="flex items-center gap-8 rounded-full border border-border-hairline bg-bg-surface/70 px-6 py-3 backdrop-blur-md">
-          <a href="#top" className="font-mono-label text-xs text-text-primary">
+        <div className='flex items-center gap-8 rounded-full border border-border-hairline bg-bg-surface/70 px-6 py-3 backdrop-blur-md'>
+          <a href='#top' className='font-mono-label text-xs text-text-primary'>
             MA
           </a>
 
-          <ul className="hidden items-center gap-6 md:flex">
+          <ul className='hidden items-center gap-6 md:flex'>
             {navItems.map((item) => (
               <li key={item.href}>
-                
+                <a
                   href={item.href}
-                  className="text-sm text-text-muted transition-colors hover:text-text-primary"
+                  className='text-sm text-text-muted transition-colors hover:text-text-primary'
                 >
                   {item.label}
                 </a>
@@ -56,9 +56,9 @@ export function Nav() {
             ))}
           </ul>
 
-          
+          <a
             href={siteConfig.resumeHref}
-            className="rounded-full border border-border-hairline px-4 py-1.5 text-sm text-text-primary transition-colors hover:border-accent-terracotta hover:text-accent-terracotta"
+            className='rounded-full border border-border-hairline px-4 py-1.5 text-sm text-text-primary transition-colors hover:border-accent-terracotta hover:text-accent-terracotta'
           >
             Resume
           </a>

@@ -1,27 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 type Node = { id: string; x: number; y: number; label: string };
 type Edge = { from: string; to: string };
 
+type HeroGraphicProps = {
+  className?: string;
+};
+
 const nodes: Node[] = [
   { id: "a", x: 60, y: 200, label: "client" },
   { id: "b", x: 200, y: 90, label: "api" },
   { id: "c", x: 200, y: 310, label: "auth" },
-  { id: "d", x: 340, y: 60, label: "worker" },
-  { id: "e", x: 340, y: 200, label: "db" },
-  { id: "f", x: 340, y: 340, label: "cdn" },
 ];
 
 const edges: Edge[] = [
   { from: "a", to: "b" },
   { from: "a", to: "c" },
-  { from: "b", to: "d" },
-  { from: "b", to: "e" },
-  { from: "c", to: "e" },
-  { from: "e", to: "f" },
 ];
 
 function findNode(id: string) {
@@ -30,23 +26,18 @@ function findNode(id: string) {
   return node;
 }
 
-export function HeroGraphic({ className }: { className?: string }) {
-  const [mounted, setMounted] = useState(false);
+export function HeroGraphic({ className }: HeroGraphicProps) {
   const prefersReducedMotion = useReducedMotion();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Prevent hydration mismatch by rendering a static shell until mounted
-  if (!mounted) return <svg viewBox='0 0 400 400' className={className} />;
+  const dur = (base: number) => (prefersReducedMotion ? 0.01 : base);
+  const delay = (base: number) => (prefersReducedMotion ? 0 : base);
 
   return (
     <svg
-      viewBox='0 0 400 400'
+      viewBox="0 0 300 400"
       className={className}
-      role='img'
-      aria-label='Abstract diagram representing connected systems'
+      role="img"
+      aria-label="Hero architecture graphic"
     >
       {edges.map((edge, i) => {
         const from = findNode(edge.from);
@@ -58,75 +49,48 @@ export function HeroGraphic({ className }: { className?: string }) {
             y1={from.y}
             x2={to.x}
             y2={to.y}
-            stroke='var(--color-border-hairline)'
-            strokeWidth={1}
-            initial={
-              prefersReducedMotion ? false : { pathLength: 0, opacity: 0 }
-            }
-            animate={{ pathLength: 1, opacity: 1 }}
+            stroke="var(--color-border-hairline)"
+            strokeWidth={1.5}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
             transition={{
-              duration: 0.7,
-              delay: 0.4 + i * 0.08,
-              ease: [0.22, 1, 0.36, 1],
+              duration: dur(0.8),
+              delay: delay(0.2 * i),
+              ease: "easeInOut",
             }}
           />
         );
       })}
-
-      {!prefersReducedMotion &&
-        edges.map((edge, i) => {
-          const from = findNode(edge.from);
-          const to = findNode(edge.to);
-          return (
-            <motion.line
-              key={`pulse-${edge.from}-${edge.to}`}
-              x1={from.x}
-              y1={from.y}
-              x2={to.x}
-              y2={to.y}
-              stroke='var(--color-accent-terracotta)'
-              strokeWidth={1.5}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.7, 0] }}
-              transition={{
-                duration: 1.6,
-                delay: 2 + i * 0.6,
-                repeat: Infinity,
-                repeatDelay: edges.length * 0.6,
-                ease: "easeInOut",
-              }}
-            />
-          );
-        })}
 
       {nodes.map((node, i) => (
         <g key={node.id}>
           <motion.circle
             cx={node.x}
             cy={node.y}
-            r={5}
-            fill='var(--color-bg-base)'
-            stroke='var(--color-accent-brass)'
+            r={30}
+            fill="var(--color-bg-surface)"
+            stroke="var(--color-accent-brass)"
             strokeWidth={1.5}
-            initial={prefersReducedMotion ? false : { scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{
-              duration: 0.4,
-              delay: 0.2 + i * 0.08,
-              ease: [0.22, 1, 0.36, 1],
+              duration: dur(0.5),
+              delay: delay(0.4 + i * 0.1),
             }}
           />
           <motion.text
             x={node.x}
-            y={node.y - 12}
-            textAnchor='middle'
-            fontFamily='var(--font-mono)'
-            fontSize='9'
-            letterSpacing='0.04em'
-            fill='var(--color-text-muted)'
-            initial={prefersReducedMotion ? false : { opacity: 0 }}
+            y={node.y + 4}
+            textAnchor="middle"
+            fontFamily="var(--font-mono)"
+            fontSize="10"
+            fill="var(--color-text-primary)"
+            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.5 + i * 0.08 }}
+            transition={{
+              duration: dur(0.4),
+              delay: delay(0.6 + i * 0.1),
+            }}
           >
             {node.label}
           </motion.text>
