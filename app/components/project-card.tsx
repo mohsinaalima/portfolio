@@ -20,7 +20,7 @@ export function ProjectCard({ project }: { project: Project }) {
     return (
       <div className='rounded-[20px] border border-dashed border-border-hairline bg-bg-surface/40 p-8'>
         <div className='flex items-baseline justify-between gap-4'>
-          <h3 className='text-2xl text-text-primary'>{project.name}</h3>
+          <h3 className='text-3xl leading-tight text-text-primary'>{project.name}</h3>
           <span className='font-mono-label whitespace-nowrap text-xs text-accent-brass'>
             in progress
           </span>
@@ -34,11 +34,11 @@ export function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <div className='rounded-[20px] border border-border-hairline bg-bg-surface p-8 transition-colors hover:border-accent-terracotta/40'>
+    <div className='group rounded-[20px] border border-border-hairline bg-bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent-terracotta/40 hover:shadow-[0_16px_40px_-16px_var(--color-accent-terracotta)]'>
       <div className='flex flex-wrap items-start justify-between gap-4'>
         <div>
-          <h3 className='text-2xl text-text-primary'>{project.name}</h3>
-          <p className='mt-1 text-text-muted'>{project.tagline}</p>
+          <h3 className='text-3xl leading-tight text-text-primary'>{project.name}</h3>
+          <p className='mt-2 text-lg text-text-muted'>{project.tagline}</p>
         </div>
 
         {project.links?.github && (
@@ -98,7 +98,7 @@ export function ProjectCard({ project }: { project: Project }) {
                     <p className='font-mono-label text-xs text-accent-brass'>
                       {label}
                     </p>
-                    <p className='mt-2 text-sm leading-relaxed text-text-muted'>
+                    <p className='mt-2 text-base leading-relaxed text-text-muted'>
                       {value}
                     </p>
                   </div>

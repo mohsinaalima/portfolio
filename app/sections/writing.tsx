@@ -5,10 +5,10 @@ export function Writing() {
     <section id="writing" className="section-y container-page">
       <div className="max-w-xl">
         <p className="font-mono-label text-xs text-accent-brass">Writing</p>
-        <h2 className="mt-3 text-4xl text-text-primary">
+        <h2 className="mt-4 text-5xl leading-[1.05] text-text-primary sm:text-6xl">
           Not published yet — here&apos;s what&apos;s planned.
         </h2>
-        <p className="mt-4 text-text-muted">
+        <p className="mt-5 text-lg leading-relaxed text-text-muted">
 
           
           I&apos;d rather show you what I&apos;m going to write about than

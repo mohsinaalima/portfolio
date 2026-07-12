@@ -83,6 +83,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -122,9 +123,38 @@
     @apply border-border outline-ring/50;
   }
   body {
+    line-height: 1.6;
+    position: relative;
     @apply bg-background text-foreground;
   }
   html {
     @apply font-sans;
   }
+}
+/* Background richness: two low-opacity radial glows + faint blueprint
+   dot-grid. Subtle per v2's "no neon, no particles" rule. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 800px 600px at 15% 0%, color-mix(in oklab, var(--color-accent-terracotta) 7%, transparent), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 90% 30%, color-mix(in oklab, var(--color-accent-olive) 6%, transparent), transparent 60%),
+    radial-gradient(ellipse 900px 700px at 50% 100%, color-mix(in oklab, var(--color-accent-brass) 4%, transparent), transparent 65%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--color-border-hairline) 35%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-border-hairline) 35%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 1200px 800px at 50% 0%, black 0%, transparent 70%);
 }

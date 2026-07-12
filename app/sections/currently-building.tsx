@@ -7,7 +7,7 @@ export function CurrentlyBuilding() {
         <p className='font-mono-label text-xs text-accent-brass'>
           Currently building
         </p>
-        <h2 className='mt-3 text-4xl text-text-primary'>
+        <h2 className='mt-4 text-5xl leading-[1.05] text-text-primary sm:text-6xl'>
           What I&apos;m learning right now, in public.
         </h2>
       </div>

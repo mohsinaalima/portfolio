@@ -22,7 +22,7 @@ export function Contact() {
     <section id='contact' className='section-y container-page'>
       <div className='mx-auto max-w-2xl text-center'>
         <p className='font-mono-label text-xs text-accent-brass'>Contact</p>
-        <h2 className='mt-3 text-4xl text-text-primary sm:text-5xl'>
+        <h2 className='mt-4 text-5xl leading-[1.05] text-text-primary sm:text-6xl'>
           {siteConfig.availability}.
         </h2>
         <p className='mt-4 text-lg text-text-muted'>

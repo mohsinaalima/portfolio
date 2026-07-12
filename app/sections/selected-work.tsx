@@ -8,7 +8,7 @@ export function SelectedWork() {
         <p className="font-mono-label text-xs text-accent-brass">
           Selected work
         </p>
-        <h2 className="mt-3 text-4xl text-text-primary">
+        <h2 className="mt-4 text-5xl leading-[1.05] text-text-primary sm:text-6xl">
           Three shipped systems, and what they actually taught me.
         </h2>
       </div>

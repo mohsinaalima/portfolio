@@ -27,7 +27,7 @@ export function EngineeringPrinciples() {
         <p className='font-mono-label text-xs text-accent-brass'>
           Engineering principles
         </p>
-        <h2 className='mt-3 text-4xl text-text-primary'>
+        <h2 className='mt-4 text-5xl leading-[1.05] text-text-primary sm:text-6xl'>
           Not a skills list. How I actually decide things.
         </h2>
       </div>
@@ -40,13 +40,13 @@ export function EngineeringPrinciples() {
           return (
             <div
               key={principle.id}
-              className='rounded-[20px] border border-border-hairline bg-bg-surface p-7 transition-colors hover:border-accent-olive/50'
+              className='rounded-[20px] border border-border-hairline bg-bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent-olive/50 hover:shadow-[0_16px_40px_-16px_var(--color-accent-olive)]'
             >
               <Icon size={20} strokeWidth={1.5} className='text-accent-olive' />
-              <h3 className='mt-5 text-lg text-text-primary'>
+              <h3 className='mt-6 text-xl leading-snug text-text-primary'>
                 {principle.title}
               </h3>
-              <p className='mt-3 text-sm leading-relaxed text-text-muted'>
+              <p className='mt-3 text-base leading-relaxed text-text-muted'>
                 {principle.body}
               </p>
             </div>

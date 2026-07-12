@@ -10,10 +10,10 @@ export function ArchitectureGallery() {
         <p className='font-mono-label text-xs text-accent-brass'>
           Architecture gallery
         </p>
-        <h2 className='mt-3 text-4xl text-text-primary'>
+        <h2 className='mt-4 text-5xl leading-[1.05] text-text-primary sm:text-6xl'>
           Three systems, drawn the way I actually built them.
         </h2>
-        <p className='mt-4 text-text-muted'>
+        <p className='mt-5 text-lg leading-relaxed text-text-muted'>
           Hover a diagram to trace the request flow. These aren&apos;t
           decoration — they&apos;re the real shape of each system.
         </p>
