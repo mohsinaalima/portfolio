@@ -45,7 +45,12 @@ export function PortraitFrame({
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
         className='relative w-full aspect-[4/5] overflow-hidden rounded-[28px] border border-border-hairline bg-bg-surface/60 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-sm'
       >
-        <img src={src} alt={alt} className='h-full w-full object-cover' />
+        <img 
+            src={src} 
+            alt={alt} 
+            className='h-full w-full object-cover' 
+            onError={(e) => console.error("Image failed to load:", e)}
+        />
 
         <div
           aria-hidden

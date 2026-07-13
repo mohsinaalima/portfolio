@@ -19,7 +19,9 @@ export default function Home() {
         <Hero />
         <SelectedWork />
         <EngineeringPrinciples />
+        {/* Momentum Section added here */}
         <CurrentlyBuilding />
+        {/* Architecture Gallery added here */}
         <ArchitectureGallery />
         <Journey />
         <About />
