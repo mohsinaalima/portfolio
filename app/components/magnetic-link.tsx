@@ -1,28 +1,19 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type MagneticLinkProps = {
-  
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  target?: string;
-  rel?: string;
-  ariaLabel?: string;
+// Define props by extending Motion's anchor props
+type MagneticLinkProps = HTMLMotionProps<"a"> & {
   strength?: number;
 };
 
 export function MagneticLink({
-  href,
   children,
   className,
-  target,
-  rel,
-  ariaLabel,
   strength = 0.3,
+  ...props // This captures aria-label and other HTML attributes
 }: MagneticLinkProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -47,15 +38,13 @@ export function MagneticLink({
   return (
     <motion.a
       ref={ref}
-      href={href}
-      target={target}
-      rel={rel}
-      aria-label={ariaLabel}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: offset.x, y: offset.y }}
       transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.4 }}
-      className={cn(className)}
+      className={cn("inline-block", className)}
+      style={{ display: "inline-block" }}
+      {...props} // This now correctly passes aria-label, href, target, etc.
     >
       {children}
     </motion.a>
