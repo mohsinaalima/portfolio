@@ -4,47 +4,33 @@ import type { TimelineEntry } from "@/app/types";
 // true before shipping. The B.Tech start/expected-graduation dates are
 // the only hard dates confirmed on the resume (2023 – 2027).
 
-export const timeline: TimelineEntry[] = [
+export const timeline = [
   {
-    id: "started-btech",
-    date: "2023",
-    title: "Started B.Tech, Computer Science & Engineering",
+    id: "clinch",
+    date: "2024 — Present",
+    title: "Full-Stack Developer Intern · Clinch Metrics Bridge",
     description:
-      "Jamia Hamdard University, New Delhi. Coursework: DSA (C++), OOP, DBMS, Operating Systems, Computer Networks, System Design.",
+      "Building production-grade web applications, managing database schemas, and optimizing frontend-backend data flows.",
   },
   {
-    id: "first-mern",
-    date: "Early builds",
-    title: "First MERN applications",
+    id: "ai-resume",
+    date: "Late 2024",
+    title: "Shipped AI Resume Analyzer",
     description:
-      "Learning the stack end-to-end — not just React, but what happens on the other side of the API call.",
-  },
-  {
-    id: "kidsportal",
-    date: "kidsportal",
-    title: "Real authentication, for the first time",
-    description:
-      "FastAPI + JWT + Google OAuth, session management and protected routes done properly instead of a login form bolted on top.",
+      "Engineered a browser-only LLM pipeline with multi-format PDF parsing, bypassing the need for a heavy backend server.",
   },
   {
     id: "picscale",
-    date: "PicScale",
-    title: "First distributed system, first production deploy problem",
+    date: "Mid 2024",
+    title: "Architected PicScale",
     description:
-      "A three-service monorepo, and a Render sandbox issue that had to be debugged, not worked around.",
+      "Designed a distributed image pipeline. Navigated complex infrastructure debugging with Linux sandboxes and Node engine loaders.",
   },
   {
-    id: "ai-resume-analyzer",
-    date: "AI-Resume-Analyzer",
-    title: "Browser-only AI pipeline",
+    id: "btech",
+    date: "2023",
+    title: "B.Tech Computer Science · Jamia Hamdard",
     description:
-      "No backend server — parsing, LLM calls, and streaming feedback entirely client-side.",
-  },
-  {
-    id: "now",
-    date: "Now",
-    title: "Building MedLens AI, seeking Summer 2027 internships",
-    description:
-      "Extending toward OCR + RAG + vector search, and looking for a team to learn from.",
+      "Started formal engineering education. Focused heavily on Data Structures, Algorithms, and core computer science fundamentals.",
   },
 ];

@@ -1,27 +1,18 @@
 export const siteConfig = {
   name: "Mohsina Alima",
   title: "Mohsina Alima — Full-Stack Engineer",
-  description:
-    "Full-stack engineer building systems that hold up under load. Selected work, architecture, and engineering principles.",
-  url: "https://mohsinaalima.dev", // placeholder — update on deploy
+  description: "Full-stack engineer building systems that hold up under load.", // <-- Added this line
+  url: "https://your-future-domain.com", // Update this when you get your actual domain
   email: "mohsinaalima2006@gmail.com",
   github: "https://github.com/mohsinaalima",
-  linkedin:
-    "https://www.linkedin.com/in/mohsina-alima-b43a83395/?skipRedirect=true",
-  resumeHref: "/resume.pdf", // drop the real resume PDF into /public
+  linkedin: "https://linkedin.com/in/mohsina-alima",
+  resumeHref: "/resume.pdf",
   availability: "Available for Summer 2027 internships",
-} as const;
-
-export type NavItem = {
-  label: string;
-  href: string;
 };
 
-export const navItems: NavItem[] = [
-  { label: "Work", href: "#selected-work" },
-  { label: "Principles", href: "#engineering-principles" },
+export const navItems = [
+  { label: "Selected Work", href: "#selected-work" },
   { label: "Architecture", href: "#architecture-gallery" },
   { label: "Journey", href: "#journey" },
-  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];

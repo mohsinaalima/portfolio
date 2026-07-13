@@ -40,13 +40,13 @@ export function EngineeringPrinciples() {
           return (
             <div
               key={principle.id}
-              className='rounded-[20px] border border-border-hairline bg-bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent-olive/50 hover:shadow-[0_16px_40px_-16px_var(--color-accent-olive)]'
+              className='rounded-[20px] border border-border-hairline bg-bg-surface p-9 transition-all duration-300 hover:-translate-y-1 hover:border-accent-olive/50 hover:shadow-[0_16px_40px_-16px_var(--color-accent-olive)]'
             >
               <Icon size={20} strokeWidth={1.5} className='text-accent-olive' />
-              <h3 className='mt-6 text-xl leading-snug text-text-primary'>
+              <h3 className='mt-6 text-2xl leading-tight text-text-primary'>
                 {principle.title}
               </h3>
-              <p className='mt-3 text-base leading-relaxed text-text-muted'>
+              <p className='mt-3 text-base leading-relaxed text-text-muted/90'>
                 {principle.body}
               </p>
             </div>

@@ -1,157 +1,119 @@
 "use client";
 
-import { useRef, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useInView,
-  useReducedMotion,
-} from "framer-motion";
-import type { DiagramNode, DiagramEdge } from "@/app/types";
+import { motion, useReducedMotion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-type Props = {
-  nodes: DiagramNode[];
-  edges: DiagramEdge[];
+export type Node = {
+  id: string;
+  x: number;
+  y: number;
+  label: string;
+  sublabel?: string;
+};
+
+export type Edge = {
+  id: string;
+  path: string; // SVG path data (e.g., "M 10 20 L 50 20")
+};
+
+type BlueprintDiagramProps = {
+  nodes: Node[];
+  edges: Edge[];
   viewBox?: string;
   className?: string;
 };
 
-function findNode(nodes: DiagramNode[], id: string) {
-  const node = nodes.find((n) => n.id === id);
-  if (!node) throw new Error(`Unknown diagram node id: ${id}`);
-  return node;
-}
-
 export function BlueprintDiagram({
   nodes,
   edges,
-  viewBox = "0 0 640 140",
+  viewBox = "0 0 400 160",
   className,
-}: Props) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const inView = useInView(svgRef, { once: true, margin: "-40px" });
-  const [hovered, setHovered] = useState(false);
+}: BlueprintDiagramProps) {
   const prefersReducedMotion = useReducedMotion();
 
-  const pathPoints = edges.reduce<{ x: number; y: number }[]>(
-    (acc, edge, i) => {
-      const from = findNode(nodes, edge.from);
-      const to = findNode(nodes, edge.to);
-      if (i === 0) acc.push({ x: from.x, y: from.y });
-      acc.push({ x: to.x, y: to.y });
-      return acc;
-    },
-    [],
-  );
-  const firstPoint = pathPoints[0];
-
-  const dur = (base: number) => (prefersReducedMotion ? 0.01 : base);
-  const delay = (base: number) => (prefersReducedMotion ? 0 : base);
-
   return (
-    <svg
-      ref={svgRef}
-      viewBox={viewBox}
-      className={className}
-      role="img"
-      aria-label="Request flow diagram"
-      tabIndex={0}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
+    <motion.div
+      initial="rest"
+      whileHover="hover"
+      animate="rest"
+      className={cn("relative group cursor-crosshair", className)}
     >
-      {edges.map((edge, i) => {
-        const from = findNode(nodes, edge.from);
-        const to = findNode(nodes, edge.to);
-        return (
-          <motion.line
-            key={`${edge.from}-${edge.to}`}
-            x1={from.x}
-            y1={from.y}
-            x2={to.x}
-            y2={to.y}
-            stroke="var(--color-border-hairline)"
-            strokeWidth={1}
-            initial={{ pathLength: 0 }}
-            animate={inView ? { pathLength: 1 } : { pathLength: 0 }}
-            transition={{
-              duration: dur(0.7),
-              delay: delay(0.15 * i),
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          />
-        );
-      })}
-
-      {nodes.map((node, i) => (
-        <g key={node.id}>
-          <motion.rect
-            x={node.x - 36}
-            y={node.y - 14}
-            width={72}
-            height={28}
-            rx={8}
-            fill="var(--color-bg-surface)"
-            stroke="var(--color-accent-brass)"
-            strokeWidth={1.2}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={{
-              duration: dur(0.4),
-              delay: delay(0.1 + i * 0.12),
-            }}
-          />
-          <motion.text
-            x={node.x}
-            y={node.y + 4}
-            textAnchor="middle"
-            fontFamily="var(--font-mono)"
-            fontSize="10"
-            letterSpacing="0.03em"
-            fill="var(--color-text-primary)"
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{
-              duration: dur(0.4),
-              delay: delay(0.2 + i * 0.12),
-            }}
-          >
-            {node.label}
-          </motion.text>
+      <svg
+        viewBox={viewBox}
+        className="h-auto w-full overflow-visible"
+        aria-hidden="true"
+      >
+        {/* Layer 1: Static Blueprint Base */}
+        <g className="text-border-hairline">
+          {edges.map((edge) => (
+            <path
+              key={`base-${edge.id}`}
+              d={edge.path}
+              stroke="currentColor"
+              strokeWidth="1"
+              fill="none"
+              strokeDasharray="4 4" // Gives it that technical schematic feel
+            />
+          ))}
         </g>
-      ))}
 
-      {firstPoint && (
-        <AnimatePresence>
-          {hovered && (
-            <motion.circle
-              key="pulse"
-              r={4}
-              fill="var(--color-accent-terracotta)"
-              initial={{ opacity: 0, cx: firstPoint.x, cy: firstPoint.y }}
-              animate={
-                prefersReducedMotion
-                  ? { opacity: 0 }
-                  : {
-                      opacity: [0, 1, 1, 0],
-                      cx: pathPoints.map((p) => p.x),
-                      cy: pathPoints.map((p) => p.y),
-                    }
-              }
-              exit={{ opacity: 0 }}
+        {/* Layer 2: Animated Request Flow */}
+        <g className="text-accent-terracotta">
+          {edges.map((edge) => (
+            <motion.path
+              key={`flow-${edge.id}`}
+              d={edge.path}
+              stroke="currentColor"
+              strokeWidth="1.5"
+              fill="none"
+              variants={{
+                rest: { pathLength: 0, opacity: 0 },
+                hover: { pathLength: 1, opacity: 1 },
+              }}
               transition={{
-                duration: Math.max(pathPoints.length * 0.5, 1.2),
-                repeat: Infinity,
-                ease: "linear",
-                times: pathPoints.map((_, i) =>
-                  pathPoints.length > 1 ? i / (pathPoints.length - 1) : 0,
-                ),
+                duration: prefersReducedMotion ? 0 : 0.8,
+                ease: [0.22, 1, 0.36, 1],
               }}
             />
-          )}
-        </AnimatePresence>
-      )}
-    </svg>
+          ))}
+        </g>
+
+        {/* Layer 3: Nodes */}
+        {nodes.map((node) => (
+          <g key={node.id} transform={`translate(${node.x}, ${node.y})`}>
+            {/* Node Surface */}
+            <rect
+              x="-48"
+              y="-18"
+              width="96"
+              height="36"
+              rx="6"
+              className="fill-bg-surface stroke-border-hairline transition-colors duration-300 group-hover:stroke-accent-olive/50"
+              strokeWidth="1"
+            />
+            {/* Node Label */}
+            <text
+              textAnchor="middle"
+              y={node.sublabel ? "-2" : "1"}
+              dominantBaseline="middle"
+              className="fill-text-primary font-mono-label text-[10px] uppercase tracking-wider"
+            >
+              {node.label}
+            </text>
+            {/* Optional Sublabel (e.g., "Next.js" or "FastAPI") */}
+            {node.sublabel && (
+              <text
+                textAnchor="middle"
+                y="10"
+                dominantBaseline="middle"
+                className="fill-text-muted font-mono-label text-[8px]"
+              >
+                {node.sublabel}
+              </text>
+            )}
+          </g>
+        ))}
+      </svg>
+    </motion.div>
   );
 }

@@ -160,7 +160,12 @@ export function Hero() {
         transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         className='hidden lg:block'
       >
-        <PortraitFrame parallaxX={parallaxX} parallaxY={parallaxY} />
+        <PortraitFrame
+          src='/portrait.jpg'
+          alt='Mohsina Alima'
+          parallaxX={parallaxX}
+          parallaxY={parallaxY}
+        />
       </motion.div>
     </section>
   );

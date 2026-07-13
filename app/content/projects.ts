@@ -1,123 +1,108 @@
-import type { Project } from "@/app/types";
+import type { Node, Edge } from "@/app/components/blueprint-diagram";
 
-export const projects = [
+export type Project = {
+  slug: string;
+  title: string;
+  name: string; // Shorter name for gallery
+  tagline: string;
+  description: string;
+  tags?: string[];
+  link?: string;
+  inProgress?: boolean;
+  diagram?: {
+    nodes: Node[];
+    edges: Edge[];
+    viewBox: string;
+  };
+};
+
+export const projects: Project[] = [
   {
     slug: "picscale",
+    title: "PicScale — Distributed Image Pipeline",
     name: "PicScale",
-    status: "shipped",
-    tagline: "Distributed image platform & monorepo",
-    problem:
-      "Image processing at any real volume can't run inline with the request — it needs to be async, and the services around it need to scale and deploy independently of each other.",
-    solution:
-      "A three-service monorepo: a Next.js client, a Node/Express API gateway, and an isolated background worker for image jobs — each independently deployable, so a slow image job never blocks the API from responding.",
-    challenge:
-      "Render's Linux sandbox silently blocked binary generation during deploy. Instead of working around it, traced the failure to the Node engine loader, triggered binary generation explicitly, and routed dummy HTTP endpoints for worker health checks — unblocking deployment without changing the core architecture.",
-    outcome:
-      "A working three-service system in production: Cloudinary CDN pipeline with runtime transform parameters serving optimally-sized images on demand, backed by relational schemas in Neon PostgreSQL via Prisma.",
-    tech: [
-      "Next.js",
-      "Node.js",
-      "Express",
-      "TypeScript",
-      "PostgreSQL (Neon)",
-      "Prisma",
-      "Cloudinary",
-      "Render",
-    ],
-    links: {
-      github: "https://github.com/mohsinaalima",
-    },
+    tagline: "Preventing blocked threads on heavy image processing.",
+    description:
+      "A distributed architecture splitting the frontend, API gateway, and processing workers into three distinct services. Resolved a critical Linux sandbox deployment block on Render by tracing binary-generation faults directly to the Node engine loader.",
+    tags: ["Node.js", "Express", "MongoDB", "Cloudinary"],
+    link: "https://github.com/yourusername/picscale", // Update with your actual link
     diagram: {
-      viewBox: "0 0 640 140",
+      viewBox: "0 0 400 160",
       nodes: [
-        { id: "browser", label: "browser", x: 40, y: 70 },
-        { id: "api", label: "api", x: 180, y: 70 },
-        { id: "worker", label: "worker", x: 320, y: 70 },
-        { id: "cloudinary", label: "cloudinary", x: 460, y: 70 },
-        { id: "db", label: "db", x: 600, y: 70 },
+        { id: "client", x: 50, y: 80, label: "Client", sublabel: "Browser" },
+        { id: "api", x: 180, y: 80, label: "Gateway", sublabel: "Express" },
+        { id: "worker", x: 320, y: 40, label: "Worker", sublabel: "Node.js" },
+        { id: "storage", x: 320, y: 120, label: "CDN", sublabel: "Cloudinary" },
       ],
       edges: [
-        { from: "browser", to: "api" },
-        { from: "api", to: "worker" },
-        { from: "worker", to: "cloudinary" },
-        { from: "cloudinary", to: "db" },
+        { id: "c-a", path: "M 98 80 L 132 80" },
+        { id: "a-w", path: "M 228 80 C 260 80, 260 40, 272 40" },
+        { id: "a-s", path: "M 228 80 C 260 80, 260 120, 272 120" },
       ],
     },
   },
   {
     slug: "ai-resume-analyzer",
-    name: "AI-Resume-Analyzer",
-    status: "shipped",
-    tagline: "Browser-only AI feedback engine, no backend server",
-    problem:
-      "Resume feedback tools usually mean standing up a backend just to proxy a file to an LLM — extra infra for what's fundamentally a client-side task.",
-    solution:
-      "React 19 + Puter.js reads an uploaded PDF resume directly in the browser, sends the parsed content to an LLM, and streams structured feedback back in real time — zero backend server required.",
-    challenge:
-      "Resume PDFs vary wildly in format and encoding. Built a multi-layer text extraction pipeline with pdfjs-dist to keep parsing consistent across that variation, rather than assuming a single clean format.",
-    outcome:
-      "A working drag-and-drop tool with global UI state managed through Zustand instead of prop drilling — keeps interactions responsive even on large documents, entirely client-side.",
-    tech: ["React 19", "TypeScript", "Puter.js", "pdfjs-dist", "Zustand", "Tailwind CSS"],
-    links: {
-      github: "https://github.com/mohsinaalima",
-    },
+    title: "AI Resume Analyzer",
+    name: "Resume Analyzer",
+    tagline: "Browser-only LLM pipeline with multi-format PDF parsing.",
+    description:
+      "Engineered an AI feature set without over-relying on heavy frameworks. Handled raw multi-format PDF parsing and built a streaming integration to evaluate candidate profiles against job descriptions efficiently.",
+    tags: ["React", "LLM", "PDF.js", "Tailwind"],
+    link: "https://github.com/yourusername/ai-resume-analyzer",
     diagram: {
-      viewBox: "0 0 620 140",
+      viewBox: "0 0 400 160",
       nodes: [
-        { id: "pdf", label: "pdf", x: 40, y: 70 },
-        { id: "parse", label: "parse", x: 220, y: 70 },
-        { id: "llm", label: "llm", x: 400, y: 70 },
-        { id: "stream", label: "stream", x: 580, y: 70 },
+        { id: "upload", x: 60, y: 80, label: "Upload", sublabel: "PDF/Docx" },
+        { id: "parse", x: 200, y: 80, label: "Parser", sublabel: "Worker" },
+        { id: "llm", x: 340, y: 80, label: "LLM", sublabel: "Stream" },
       ],
       edges: [
-        { from: "pdf", to: "parse" },
-        { from: "parse", to: "llm" },
-        { from: "llm", to: "stream" },
+        { id: "u-p", path: "M 108 80 L 152 80" },
+        { id: "p-l", path: "M 248 80 L 292 80" },
       ],
     },
   },
   {
     slug: "kidsportal",
-    name: "kidsportal",
-    status: "shipped",
-    tagline: "Interactive learning platform with real auth",
-    problem:
-      "A learning platform for kids needs real session security — protected routes, token refresh, OAuth — not just a login form bolted onto the frontend.",
-    solution:
-      "End-to-end authentication with FastAPI on the backend and JWT + Google OAuth on the React frontend, covering session management, token refresh, and protected route guards properly.",
-    challenge:
-      "Structuring a MySQL schema that serves personalized learning feeds — user profiles, auth state, dynamic video content — without redundant joins slowing down every page load.",
-    outcome:
-      "A 'Cognitive Game Engine' and Watch History dashboard built with useState/useEffect, maintaining real-time game state and media progress across sessions without page reloads.",
-    tech: ["React", "Vite", "Tailwind CSS", "FastAPI", "Python", "MySQL", "JWT", "Google OAuth"],
-    links: {},
+    title: "Kids Drawing Game & Portal",
+    name: "KidsPortal",
+    tagline: "Managing Canvas state and secure OAuth sessions.",
+    description:
+      "A full-stack application managing local drawing state via Canvas APIs alongside secure JWT and OAuth session flows for user authentication and gallery saving.",
+    tags: ["Next.js", "OAuth", "Canvas API", "PostgreSQL"],
+    link: "https://github.com/yourusername/kidsportal",
     diagram: {
-      viewBox: "0 0 600 140",
+      viewBox: "0 0 400 160",
       nodes: [
-        { id: "oauth", label: "oauth", x: 60, y: 70 },
-        { id: "jwt", label: "jwt", x: 300, y: 70 },
-        { id: "session", label: "session", x: 540, y: 70 },
+        { id: "canvas", x: 60, y: 40, label: "Canvas", sublabel: "State" },
+        { id: "auth", x: 60, y: 120, label: "OAuth", sublabel: "Google" },
+        { id: "server", x: 200, y: 80, label: "Server", sublabel: "FastAPI" },
+        { id: "db", x: 340, y: 80, label: "Database", sublabel: "NeonDB" },
       ],
       edges: [
-        { from: "oauth", to: "jwt" },
-        { from: "jwt", to: "session" },
+        { id: "c-s", path: "M 108 40 C 140 40, 140 80, 152 80" },
+        { id: "a-s", path: "M 108 120 C 140 120, 140 80, 152 80" },
+        { id: "s-d", path: "M 248 80 L 292 80" },
       ],
     },
   },
   {
     slug: "medlens-ai",
+    title: "MedLens AI",
     name: "MedLens AI",
-    status: "in-progress",
-    tagline: "AI-powered medical report understanding — OCR + RAG",
-    tech: ["OCR", "RAG", "Vector Search", "Gemini API"],
-    diagram: undefined,
+    tagline: "In progress — details coming soon.",
+    description:
+      "Currently architecting a system using RAG and vector search to parse and analyze unstructured medical reports. Full write-up coming once it's shipped.",
+    inProgress: true,
   },
   {
-    slug: "healthbridge",
-    name: "HealthBridge",
-    status: "in-progress",
-    tagline: "Healthcare appointment platform",
-    tech: [],
-    diagram: undefined,
+    slug: "health-bridge",
+    title: "Health-Bridge",
+    name: "Health-Bridge",
+    tagline: "In progress — details coming soon.",
+    description:
+      "A local systems project focusing on healthcare service accessibility. Write-up and architecture diagrams will be added upon completion.",
+    inProgress: true,
   },
-] as const satisfies Project[];
+];

@@ -41,9 +41,10 @@ export function PortraitFrame({
             : { y: [0, -10, 0], rotate: [-1, 1, -1] }
         }
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className='relative aspect-[4/5] overflow-hidden rounded-[28px] border border-border-hairline bg-bg-surface/60 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-sm'
+        className='relative w-full aspect-[4/5] overflow-hidden rounded-[28px] border border-border-hairline bg-bg-surface/60 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-sm'
       >
         {src ? (
+          /* Bypassing Next.js optimizer for native browser rendering */
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={src}

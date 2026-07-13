@@ -1,50 +1,43 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useReducedMotion, HTMLMotionProps } from "framer-motion";
-import { cn } from "@/lib/utils";
-
-// Define props by extending Motion's anchor props
-type MagneticLinkProps = HTMLMotionProps<"a"> & {
-  strength?: number;
-};
+import { motion, useReducedMotion } from "framer-motion";
 
 export function MagneticLink({
   children,
+  href,
   className,
-  strength = 0.3,
-  ...props // This captures aria-label and other HTML attributes
-}: MagneticLinkProps) {
+}: {
+  children: React.ReactNode;
+  href: string;
+  className?: string;
+}) {
   const ref = useRef<HTMLAnchorElement>(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const prefersReducedMotion = useReducedMotion();
 
-  function handleMouseMove(e: React.MouseEvent<HTMLAnchorElement>) {
-    if (prefersReducedMotion || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const relX = e.clientX - (rect.left + rect.width / 2);
-    const relY = e.clientY - (rect.top + rect.height / 2);
-    const maxPull = 8;
-    setOffset({
-      x: Math.max(-maxPull, Math.min(maxPull, relX * strength)),
-      y: Math.max(-maxPull, Math.min(maxPull, relY * strength)),
-    });
-  }
+  const handleMouse = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (prefersReducedMotion) return;
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current!.getBoundingClientRect();
+    const middleX = clientX - (left + width / 2);
+    const middleY = clientY - (top + height / 2);
+    setPosition({ x: middleX * 0.2, y: middleY * 0.2 });
+  };
 
-  function handleMouseLeave() {
-    setOffset({ x: 0, y: 0 });
-  }
+  const reset = () => {
+    setPosition({ x: 0, y: 0 });
+  };
 
   return (
     <motion.a
       ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ x: offset.x, y: offset.y }}
-      transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.4 }}
-      className={cn("inline-block", className)}
-      style={{ display: "inline-block" }}
-      {...props} // This now correctly passes aria-label, href, target, etc.
+      href={href}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      className={className}
     >
       {children}
     </motion.a>

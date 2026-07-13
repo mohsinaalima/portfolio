@@ -1,18 +1,18 @@
 import type { CurrentlyBuildingItem } from "@/app/types";
 export const currentlyBuilding = [
   {
-    id: "rag-vector-search",
-    label: "RAG & vector search",
-    why: "Extending the resume analyzer beyond keyword matching, toward MedLens AI's document-understanding direction.",
+    id: "rag",
+    label: "RAG & Vector Search",
+    why: "Extending the AI Resume Analyzer and building MedLens AI beyond simple keyword matching to contextual, unstructured data parsing.",
   },
   {
-    id: "system-design",
-    label: "System design fundamentals",
-    why: "Formalizing the instincts PicScale's monorepo split was already reaching for.",
+    id: "docker",
+    label: "Docker in WSL",
+    why: "Transitioning to a strict Linux environment via WSL and learning containerization for production-ready deployments.",
   },
   {
-    id: "docker-production",
-    label: "Docker in production contexts",
-    why: "Moving past local dev containers into deploy pipelines that actually ship.",
+    id: "sysadmin",
+    label: "Bash Scripting & DevOps",
+    why: "Writing internal tooling (like status.sh) to automate environment checks and manage local project ecosystems.",
   },
-] as const satisfies CurrentlyBuildingItem[];
+];
