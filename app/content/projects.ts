@@ -1,104 +1,98 @@
-import type { Node, Edge } from "@/app/components/blueprint-diagram";
-
-export type Project = {
-  slug: string;
-  name: string;
-  tagline: string;
-  description: string;
-  tags: string[];
-  link?: string;
-  inProgress?: boolean;
-  diagram?: {
-    nodes: any[];
-    edges: any[];
-    viewBox: string;
-  };
-};
-
-export const projects: Project[] = [
+export const projects = [
   {
-    slug: "picscale",
-    name: "PicScale",
-    tagline: "Distributed Image Pipeline",
-    description:
-      "A distributed architecture splitting the frontend, API gateway, and processing workers into three distinct services. Resolved a critical Linux sandbox deployment block on Render by tracing binary-generation faults directly to the Node engine loader.",
-    tags: ["Node.js", "Express", "MongoDB", "Cloudinary"],
-    link: "https://github.com/mohsinaalima/picscale",
+    slug: "insaafsetu",
+    name: "InsaafSetu",
+    tagline: "Legal-tech platform architecture",
     diagram: {
-      viewBox: "0 0 400 160",
+      viewBox: "0 0 400 200",
       nodes: [
-        { id: "client", x: 60, y: 80, label: "Client", sublabel: "Browser" },
-        { id: "gateway", x: 200, y: 80, label: "Gateway", sublabel: "Express" },
-        { id: "worker", x: 340, y: 40, label: "Worker", sublabel: "Node.js" },
-        { id: "cdn", x: 340, y: 120, label: "CDN", sublabel: "Cloudinary" },
+        { id: "1", x: 100, y: 100, label: "Client" },
+        { id: "2", x: 300, y: 100, label: "Server" },
+      ],
+      edges: [{ id: "e1", path: "M 130 100 L 270 100" }],
+    },
+  },
+  {
+    slug: "kids-portal",
+    name: "KidsPortal",
+    tagline: "Secure canvas & auth flow",
+    diagram: {
+      viewBox: "0 0 400 200",
+      nodes: [
+        { id: "1", x: 100, y: 50, label: "Canvas" },
+        { id: "2", x: 100, y: 150, label: "OAuth" },
+        { id: "3", x: 300, y: 100, label: "FastAPI" },
       ],
       edges: [
-        { id: "e1", path: "M 108 80 L 152 80" },
-        { id: "e2", path: "M 248 80 C 290 80 290 40 300 40" },
-        { id: "e3", path: "M 248 80 C 290 80 290 120 300 120" },
+        { id: "e1", path: "M 140 50 L 260 90" },
+        { id: "e2", path: "M 140 150 L 260 110" },
       ],
+    },
+  },
+  {
+    slug: "crop-chain",
+    name: "CropChain",
+    tagline: "Supply chain transparency",
+    diagram: {
+      viewBox: "0 0 400 200",
+      nodes: [
+        { id: "1", x: 100, y: 100, label: "Blockchain" },
+        { id: "2", x: 300, y: 100, label: "API" },
+      ],
+      edges: [{ id: "e1", path: "M 140 100 L 260 100" }],
     },
   },
   {
     slug: "ai-resume-analyzer",
     name: "AI Resume Analyzer",
-    tagline: "Browser-only LLM Pipeline",
-    description:
-      "Engineered an AI feature set without over-relying on heavy frameworks. Handled raw multi-format PDF parsing and built a streaming integration to evaluate candidate profiles against job descriptions efficiently.",
-    tags: ["React", "LLM", "PDF.js", "Tailwind"],
-    link: "#",
+    tagline: "Browser-only LLM pipeline",
     diagram: {
-      viewBox: "0 0 400 160",
+      viewBox: "0 0 400 200",
       nodes: [
-        { id: "upload", x: 60, y: 80, label: "Upload", sublabel: "PDF/Docx" },
-        { id: "parser", x: 200, y: 80, label: "Parser", sublabel: "Worker" },
-        { id: "llm", x: 340, y: 80, label: "LLM", sublabel: "Stream" },
+        { id: "1", x: 80, y: 100, label: "Upload" },
+        { id: "2", x: 200, y: 100, label: "Parser" },
+        { id: "3", x: 320, y: 100, label: "LLM" },
       ],
       edges: [
-        { id: "e1", path: "M 108 80 L 152 80" },
-        { id: "e2", path: "M 248 80 L 292 80" },
+        { id: "e1", path: "M 110 100 L 170 100" },
+        { id: "e2", path: "M 230 100 L 290 100" },
       ],
     },
   },
   {
-    slug: "kids-portal",
-    name: "Kids Drawing Game & Portal",
-    tagline: "Managing Canvas state and secure OAuth",
-    description:
-      "A full-stack application managing local drawing state via Canvas APIs alongside secure JWT and OAuth session flows for user authentication and gallery saving.",
-    tags: ["Next.js", "OAuth", "Canvas API", "PostgreSQL"],
-    link: "#",
+    slug: "picscale",
+    name: "PicScale",
+    tagline: "Distributed image pipeline",
     diagram: {
-      viewBox: "0 0 400 160",
+      viewBox: "0 0 400 200",
       nodes: [
-        { id: "canvas", x: 80, y: 40, label: "Canvas", sublabel: "State" },
-        { id: "oauth", x: 80, y: 120, label: "OAuth", sublabel: "Google" },
-        { id: "server", x: 250, y: 80, label: "Server", sublabel: "FastAPI" },
-        { id: "db", x: 370, y: 80, label: "Database", sublabel: "NeonDB" },
+        { id: "1", x: 80, y: 100, label: "Browser" },
+        { id: "2", x: 200, y: 100, label: "Gateway" },
+        { id: "3", x: 320, y: 60, label: "Worker" },
+        { id: "4", x: 320, y: 140, label: "CDN" },
       ],
       edges: [
-        { id: "e1", path: "M 128 40 C 180 40 180 80 202 80" },
-        { id: "e2", path: "M 128 120 C 180 120 180 80 202 80" },
-        { id: "e3", path: "M 298 80 L 322 80" },
+        { id: "e1", path: "M 110 100 L 170 100" },
+        { id: "e2", path: "M 230 100 L 290 70" },
+        { id: "e3", path: "M 230 100 L 290 130" },
       ],
     },
   },
   {
-    slug: "medlens-ai",
-    name: "MedLens AI",
-    tagline: "Unstructured Medical Report Analysis",
-    description:
-      "Currently architecting a system using RAG and vector search to parse and analyze unstructured medical reports. Full write-up coming once it's shipped.",
-    tags: ["RAG", "Vector Search", "AI"],
-    inProgress: true,
-  },
-  {
-    slug: "health-bridge",
-    name: "Health-Bridge",
-    tagline: "Healthcare Service Accessibility",
-    description:
-      "A local systems project focusing on healthcare service accessibility. Write-up and architecture diagrams will be added upon completion.",
-    tags: ["Systems", "Healthcare"],
-    inProgress: true,
+    slug: "zaika-zone",
+    name: "Zaika Zone",
+    tagline: "MERN Stack Restaurant App",
+    diagram: {
+      viewBox: "0 0 400 200",
+      nodes: [
+        { id: "1", x: 80, y: 100, label: "Client" },
+        { id: "2", x: 200, y: 100, label: "Server" },
+        { id: "3", x: 320, y: 100, label: "Database" },
+      ],
+      edges: [
+        { id: "e1", path: "M 110 100 L 170 100" },
+        { id: "e2", path: "M 230 100 L 290 100" },
+      ],
+    },
   },
 ];

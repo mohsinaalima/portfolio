@@ -56,9 +56,19 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased relative min-h-screen bg-bg-base`}
       >
-        {children}
+        {/* The Blueprint Background Layer */}
+        <div className='pointer-events-none fixed inset-0 z-0 blueprint-grid opacity-[0.45]' />
+
+        {/* Soft Spotlight Glow for depth */}
+        <div className='pointer-events-none fixed inset-0 z-0'>
+          <div className='absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-accent-terracotta/5 blur-[120px]' />
+          <div className='absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-accent-olive/5 blur-[120px]' />
+        </div>
+
+        {/* The Content Layer */}
+        <div className='relative z-10'>{children}</div>
       </body>
     </html>
   );

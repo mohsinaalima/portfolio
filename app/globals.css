@@ -28,12 +28,30 @@
 }
 
 @layer components {
-  /* section-y: Increased padding for breathing room */
   .section-y {
     @apply py-24 md:py-32;
   }
 
   .container-page {
     @apply mx-auto max-w-7xl px-6;
+  }
+}
+
+@layer utilities {
+  /* Blueprint Grid implementation (Graph Paper Style) */
+  .blueprint-grid {
+    background-image:
+      linear-gradient(
+        to right,
+        var(--color-border-hairline) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-border-hairline) 1px,
+        transparent 1px
+      );
+    background-size: 20px 20px;
+    mask-image: radial-gradient(circle at center, black, transparent 85%);
   }
 }

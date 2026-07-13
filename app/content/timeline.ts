@@ -1,36 +1,45 @@
-import type { TimelineEntry } from "@/app/types";
-
-// Dates are approximate/ordered, not exact — adjust to what's actually
-// true before shipping. The B.Tech start/expected-graduation dates are
-// the only hard dates confirmed on the resume (2023 – 2027).
-
 export const timeline = [
   {
-    id: "clinch",
-    date: "2024 — Present",
-    title: "Full-Stack Developer Intern · Clinch Metrics Bridge",
+    id: 1,
+    date: "2026 — Present",
+    title: "InsaafSetu",
     description:
-      "Building production-grade web applications, managing database schemas, and optimizing frontend-backend data flows.",
+      "Currently leading full-stack development for this legal-tech platform, focusing on secure infrastructure and complex state management.",
   },
   {
-    id: "ai-resume",
-    date: "Late 2024",
-    title: "Shipped AI Resume Analyzer",
+    id: 2,
+    date: "2026 — Present",
+    title: "KidsPortal",
+    description:
+      "Built an interactive educational dashboard during my internship, prioritizing accessible design and engaging user flows.",
+  },
+  {
+    id: 5,
+    date: "Mid 2026",
+    title: "PicScale",
+    description:
+      "Architected a distributed image pipeline. Navigated complex infrastructure debugging with Linux sandboxes and Node engine loaders.",
+  },
+  {
+    id: 3,
+    date: "2025",
+    title: "CropChain",
+    description:
+      "Contributed to this open-source initiative to enhance supply chain transparency and traceability.",
+  },
+  {
+    id: 4,
+    date: "Late 2025",
+    title: "AI Resume Analyzer",
     description:
       "Engineered a browser-only LLM pipeline with multi-format PDF parsing, bypassing the need for a heavy backend server.",
   },
+
   {
-    id: "picscale",
-    date: "Mid 2024",
-    title: "Architected PicScale",
+    id: 6,
+    date: "2025",
+    title: "Zaika Zone",
     description:
-      "Designed a distributed image pipeline. Navigated complex infrastructure debugging with Linux sandboxes and Node engine loaders.",
-  },
-  {
-    id: "btech",
-    date: "2023",
-    title: "B.Tech Computer Science · Jamia Hamdard",
-    description:
-      "Started formal engineering education. Focused heavily on Data Structures, Algorithms, and core computer science fundamentals.",
+      "Developed a MERN stack restaurant platform featuring real-time video integration and dynamic menu management.",
   },
 ];

@@ -4,7 +4,7 @@ import { projects } from "@/app/content/projects";
 import { BlueprintDiagram } from "@/app/components/blueprint-diagram";
 
 export function ArchitectureGallery() {
-  // Only show projects that actually have diagram data
+  // Filters projects that have diagram data
   const diagrammedProjects = projects.filter((p) => p.diagram);
 
   return (
@@ -16,8 +16,9 @@ export function ArchitectureGallery() {
         <p className='font-mono-label text-sm tracking-widest text-accent-brass'>
           Architecture gallery
         </p>
+        {/* Updated Heading: No longer constrained to "Three" */}
         <h2 className='mt-4 text-4xl leading-[1.1] text-text-primary sm:text-5xl'>
-          Three systems, drawn the way I actually built them.
+          Systems, drawn the way I actually built them.
         </h2>
         <p className='mt-5 text-lg leading-relaxed text-text-muted'>
           Hover a diagram to trace the request flow. These aren't just
@@ -25,7 +26,7 @@ export function ArchitectureGallery() {
         </p>
       </div>
 
-      {/* Grid Layout */}
+      {/* Grid Layout: Responsive for 1, 2, or 3+ projects */}
       <div className='mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
         {diagrammedProjects.map((project) => (
           <div
