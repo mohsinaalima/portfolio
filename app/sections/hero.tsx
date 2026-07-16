@@ -70,7 +70,7 @@ export function Hero() {
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         // Simple string ease
-        transition={{ duration: 0.9, delay: 0.2, ease: "easeInOut" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
         className='block'
       >
         <PortraitFrame
