@@ -13,13 +13,12 @@ const container = {
   show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
 };
 
-// Fix: Explicitly typed as 'any' to bypass strict Vercel build validation for variants
-const item: any = {
+const item = {
   hidden: { opacity: 0, y: 14 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.6, ease: "cubic-bezier(0.22, 1, 0.36, 1)" },
   },
 };
 
@@ -71,11 +70,11 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        // Fix: Added 'as any' here as well to be safe
+        // Using string format here too
         transition={{
           duration: 0.9,
           delay: 0.2,
-          ease: [0.22, 1, 0.36, 1] as any,
+          ease: "cubic-bezier(0.22, 1, 0.36, 1)",
         }}
         className='block'
       >
