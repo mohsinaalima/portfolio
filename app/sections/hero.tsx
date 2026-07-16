@@ -6,7 +6,6 @@ import {
   useSpring,
   useReducedMotion,
 } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/app/components/icons";
 import { MagneticLink } from "@/app/components/magnetic-link";
 import { PortraitFrame } from "@/app/components/portrait-frame";
@@ -22,7 +21,8 @@ const item = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    // Fix: Added 'as any' to handle TypeScript build restrictions
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as any },
   },
 };
 
@@ -58,7 +58,6 @@ export function Hero() {
         animate='show'
         className='flex flex-col gap-7'
       >
-        {/* ... Hero Content (Keep your existing text/links code here) ... */}
         <motion.h1
           variants={item}
           className='text-[clamp(3.25rem,7.5vw,6rem)] font-normal leading-[0.98] tracking-tight text-text-primary'
@@ -75,7 +74,12 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        // Fix: Added 'as any' to handle TypeScript build restrictions
+        transition={{
+          duration: 0.9,
+          delay: 0.2,
+          ease: [0.22, 1, 0.36, 1] as any,
+        }}
         className='block'
       >
         <PortraitFrame
