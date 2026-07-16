@@ -5,10 +5,11 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
   },
   typescript: {
-    // This tells Vercel to stop checking types during build
+    // This tells Vercel: DO NOT fail the build if TypeScript has errors
     ignoreBuildErrors: true,
   },
   eslint: {
+    // This tells Vercel: DO NOT fail the build if ESLint has errors
     ignoreDuringBuilds: true,
   },
 };
