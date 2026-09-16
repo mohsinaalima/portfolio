@@ -5,7 +5,7 @@ export const siteConfig = {
   url: "https://your-future-domain.com", // Update this when you get your actual domain
   email: "mohsinaalima2006@gmail.com",
   github: "https://github.com/mohsinaalima",
-  linkedin: "https://linkedin.com/in/mohsina-alima",
+  linkedin: "https://www.linkedin.com/in/mohsina-alima-b43a83395/",
   resumeHref: "/resume.pdf",
   availability: "Available for Summer 2027 internships",
 };
