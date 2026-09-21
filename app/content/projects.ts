@@ -6,6 +6,7 @@ export const projects = [
     description:
       "A secure web application focused on interactive canvas experiences and authentication flows.",
     github: "https://gitlab.com/zavianexus/kidsportal.git",
+    liveUrl: "", // Add live link if available
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
@@ -27,6 +28,7 @@ export const projects = [
     description:
       "An AI-powered resume analysis application that processes resumes and uses an LLM pipeline to provide useful insights.",
     github: "https://github.com/mohsinaalima/ai-resume-analyzer",
+    liveUrl: "https://ai-resume-analyzer-six-tawny.vercel.app/",
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
@@ -48,6 +50,7 @@ export const projects = [
     description:
       "A distributed image processing pipeline designed around browser, gateway, worker, and CDN components.",
     github: "https://github.com/mohsinaalima/picscale",
+    liveUrl: "https://picscale-2.onrender.com/",
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
@@ -71,6 +74,7 @@ export const projects = [
     description:
       "A full-stack restaurant application built using the MERN stack with a client, server, and database architecture.",
     github: "https://github.com/mohsinaalima/zaika-zone",
+    liveUrl: "",
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
@@ -90,8 +94,9 @@ export const projects = [
     name: "Aperture Fitness",
     tagline: "Offline-first fitness SaaS",
     description:
-      "Aperture Fitness is an offline-first fitness SaaS designed to help users create custom workout plans, log workouts, track sets, reps, weights, personal records, and analyze their training progress. It is built as a scalable monorepo using Next.js, TypeScript, Fastify, PostgreSQL, Prisma, Redis, and BullMQ, with a future Python/FastAPI AI layer for intelligent workout insights and analysis.",
+      "Aperture Fitness is an offline-first fitness SaaS designed to help users create custom workout plans, log workouts, track sets, reps, weights, personal records, and analyze their training progress.",
     github: "https://github.com/mohsinaalima/Aperture-Fitness.git",
+    liveUrl: "",
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
@@ -113,8 +118,9 @@ export const projects = [
     name: "Cortex",
     tagline: "Containerized Second Brain RAG",
     description:
-      "I built a containerized second brain RAG application that extracts, chunks, and embeds data from PDFs and URLs for semantic search. I developed the end-to-end architecture, including the FastAPI backend, Qdrant vector database integration, OpenAI context-aware answering pipeline, and React/Vite frontend. The stack includes Python, FastAPI, Qdrant, React, Vite, Docker, and OpenAI.",
+      "I built a containerized second brain RAG application that extracts, chunks, and embeds data from PDFs and URLs for semantic search.",
     github: "https://github.com/mohsinaalima/Cortex.git",
+    liveUrl: "",
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
@@ -136,8 +142,9 @@ export const projects = [
     name: "DevPlot AI",
     tagline: "AI-powered developer productivity platform",
     description:
-      "DevPlot AI is an AI-powered developer productivity platform designed to help developers understand, analyze, and work with technical information more efficiently. It uses AI, Retrieval-Augmented Generation (RAG), embeddings, and semantic search to process developer resources and provide concise, context-aware explanations and answers. The project combines a React frontend with a Python/FastAPI backend, along with document processing, vector search, and LLM-based response generation.",
-    github: "https://github.com/mohsinaalima/devpiolet_ai.git",
+      "DevPlot AI is an AI-powered developer productivity platform designed to help developers understand, analyze, and work with technical information more efficiently.",
+    github: "https://github.com/mohsinaalima/devpiolet_ai",
+    liveUrl: "",
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
