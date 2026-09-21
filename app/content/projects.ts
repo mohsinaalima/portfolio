@@ -5,7 +5,7 @@ export const projects = [
     tagline: "Secure canvas & auth flow",
     description:
       "A secure web application focused on interactive canvas experiences and authentication flows.",
-    github: "https://github.com/mohsinaalima/kids-portal",
+    github: "https://gitlab.com/zavianexus/kidsportal.git",
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [
