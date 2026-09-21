@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Mohsina Alima",
   title: "Mohsina Alima — Full-Stack Engineer",
-  description: "Full-stack engineer building systems that hold up under load.", // <-- Added this line
-  url: "https://your-future-domain.com", // Update this when you get your actual domain
+  description: "Full-stack engineer building systems that hold up under load.", 
+  url: "https://your-future-domain.com", 
   email: "mohsinaalima2006@gmail.com",
   github: "https://github.com/mohsinaalima",
   linkedin: "https://www.linkedin.com/in/mohsina-alima-b43a83395/",

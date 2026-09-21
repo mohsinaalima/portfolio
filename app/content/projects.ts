@@ -6,7 +6,7 @@ export const projects = [
     description:
       "A secure web application focused on interactive canvas experiences and authentication flows.",
     github: "https://gitlab.com/zavianexus/kidsportal.git",
-    liveUrl: "", // Add live link if available
+    liveUrl: "", 
     diagram: {
       viewBox: "0 0 400 200",
       nodes: [

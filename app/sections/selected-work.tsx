@@ -74,15 +74,25 @@ export function SelectedWork() {
                   {project.description}
                 </p>
 
-                {/* Architecture */}
+                {/* Architecture & Live Links Footer */}
                 <div className='mt-6 flex items-center justify-between'>
-                  <span className='text-xs font-mono text-accent-olive'>
+                  <a
+                    href='#architecture-gallery'
+                    className='text-xs font-mono text-accent-olive transition-colors hover:text-accent-brass'
+                  >
                     View Architecture →
-                  </span>
+                  </a>
 
-                  <span className='text-xs font-mono text-text-muted opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
-                    Open source
-                  </span>
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-xs font-mono text-text-muted opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:text-accent-brass'
+                    >
+                      Live Demo →
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
