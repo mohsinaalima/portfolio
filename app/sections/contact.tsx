@@ -7,6 +7,7 @@ import { siteConfig } from "@/app/config/site";
 import { GithubIcon, LinkedinIcon } from "@/app/components/icons";
 
 export function Contact() {
+
   const [copied, setCopied] = useState(false);
 
   async function handleCopyEmail() {
