@@ -81,10 +81,10 @@ export function InternshipSection() {
             </p>
           </div>
 
-          {/* Updated PDF link matching your public file name */}
+          {/* PDF link with clean formatting */}
           <div className='mt-8 pt-6 border-t border-border-hairline flex flex-wrap items-center justify-between gap-4'>
             <a
-              href='/Mohsina_Alima_Internship_Letter.pdf'
+              href='/internship-letter.pdf'
               target='_blank'
               rel='noopener noreferrer'
               className='inline-flex items-center gap-2 rounded-xl bg-accent-terracotta/10 border border-accent-terracotta/30 px-5 py-3 text-xs font-mono text-accent-terracotta transition-all hover:bg-accent-terracotta hover:text-white shadow-lg'
