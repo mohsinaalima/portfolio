@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { navItems, siteConfig } from "@/app/config/site";
 
@@ -48,23 +48,24 @@ export function Nav() {
         duration: prefersReducedMotion ? 0 : 0.3,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className='fixed inset-x-0 top-0 z-50 flex justify-center pt-6'
+      className='fixed inset-x-0 top-0 z-50 flex justify-center pt-6 px-4'
     >
       <nav
         aria-label='Primary'
-        className={`flex items-center gap-7 rounded-full border border-border-hairline px-6 py-2.5 backdrop-blur-md transition-colors duration-300 ${
-          scrolled ? "bg-bg-surface/85 shadow-lg" : "bg-bg-surface/50"
+        className={`flex items-center justify-between gap-6 rounded-full border border-white/10 px-6 py-3 backdrop-blur-xl transition-all duration-300 ${
+          scrolled
+            ? "bg-[#0a0c10]/85 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] border-white/15"
+            : "bg-[#0a0c10]/40"
         }`}
       >
         <a
           href='#top'
-          className='px-2 font-mono-label text-xs text-text-primary hover:text-accent-terracotta transition-colors'
+          className='font-mono text-xs font-bold tracking-wider text-white hover:text-rose-400 transition-colors'
         >
-          MA
+          MA<span className='text-rose-500'>.</span>
         </a>
 
-        {/* Separator - Subtle visual division */}
-        <div className='h-4 w-px bg-border-hairline/60 mx-1' />
+        <div className='h-4 w-px bg-white/10 mx-1 hidden md:block' />
 
         <ul className='hidden items-center gap-6 md:flex'>
           {navItems.map((item) => {
@@ -73,10 +74,8 @@ export function Nav() {
               <li key={item.href} className='relative'>
                 <a
                   href={item.href}
-                  className={`relative px-2 py-1 text-sm transition-colors ${
-                    isActive
-                      ? "text-text-primary"
-                      : "text-text-muted hover:text-text-primary"
+                  className={`relative px-2 py-1 text-xs font-medium transition-colors ${
+                    isActive ? "text-white" : "text-slate-400 hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -85,7 +84,7 @@ export function Nav() {
                   {isActive && (
                     <motion.span
                       layoutId='nav-active-indicator'
-                      className='absolute -bottom-1 left-0 right-0 h-px bg-accent-terracotta'
+                      className='absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-rose-500 to-cyan-400'
                       transition={{
                         type: "spring",
                         stiffness: 380,
@@ -99,10 +98,9 @@ export function Nav() {
           })}
         </ul>
 
-        {/* Resume Button - Polished alignment */}
         <a
           href={siteConfig.resumeHref}
-          className='ml-2 rounded-full border border-border-hairline bg-bg-base/20 px-4 py-1.5 text-sm text-text-primary transition-all hover:border-accent-terracotta hover:text-accent-terracotta hover:bg-accent-terracotta/10'
+          className='rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white transition-all hover:border-rose-500/50 hover:bg-rose-500/10 hover:text-rose-400'
         >
           Resume
         </a>

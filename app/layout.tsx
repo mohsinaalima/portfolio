@@ -56,15 +56,16 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased relative min-h-screen bg-bg-base`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased relative min-h-screen bg-bg-base selection:bg-rose-500 selection:text-white`}
       >
-        {/* The Blueprint Background Layer */}
-        <div className='pointer-events-none fixed inset-0 z-0 blueprint-grid opacity-[0.45]' />
+        {/* The Blueprint Background Layer with subtle opacity */}
+        <div className='pointer-events-none fixed inset-0 z-0 blueprint-grid opacity-[0.25]' />
 
-        {/* Soft Spotlight Glow for depth */}
-        <div className='pointer-events-none fixed inset-0 z-0'>
-          <div className='absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-accent-terracotta/5 blur-[120px]' />
-          <div className='absolute bottom-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-accent-olive/5 blur-[120px]' />
+        {/* High-End Oryzo-Style Ambient Glows */}
+        <div className='pointer-events-none fixed inset-0 z-0 overflow-hidden'>
+          <div className='absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-rose-500/10 blur-[150px]' />
+          <div className='absolute top-1/2 -right-40 h-[600px] w-[600px] rounded-full bg-cyan-500/10 blur-[160px]' />
+          <div className='absolute -bottom-40 left-1/3 h-[500px] w-[500px] rounded-full bg-amber-500/10 blur-[140px]' />
         </div>
 
         {/* The Content Layer */}

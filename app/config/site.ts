@@ -7,7 +7,7 @@ export const siteConfig = {
   github: "https://github.com/mohsinaalima",
   linkedin: "https://www.linkedin.com/in/mohsina-alima-b43a83395/",
   resumeHref: "/resume.pdf",
-  availability: "Available for Summer 2027 internships",
+  availability: "Available for internships/ jobs",
 };
 
 export const navItems = [

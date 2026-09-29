@@ -2,102 +2,81 @@
 
 import { motion } from "framer-motion";
 import { projects } from "@/app/content/projects";
+import { ArrowUpRight, Code2 } from "lucide-react";
 
 export function SelectedWork() {
+  // Yahan hum DevPilot AI aur PicScale jaise top impact projects ko select kar rahe hain
+  const topSlugs = ["devplot-ai", "picscale", "cortex"];
+  const topProjects = projects.filter((p) => topSlugs.includes(p.slug));
+
   return (
     <section
       id='selected-work'
       className='section-y container-page overflow-visible'
     >
       <div className='max-w-xl'>
-        <p className='font-mono-label text-sm tracking-widest text-accent-brass'>
-          Selected work
+        <p className='font-mono-label text-sm tracking-widest text-accent-brass flex items-center gap-2'>
+          <Code2 size={14} /> Selected Work
         </p>
 
         <h2 className='mt-4 text-4xl leading-[1.1] text-text-primary sm:text-5xl'>
           Systems that solve real-world problems.
         </h2>
+        <p className='mt-4 text-slate-400 text-sm'>
+          Curated production-grade full-stack and AI multi-agent systems built
+          for scale.
+        </p>
       </div>
 
-      {/* Animated Blueprint Line & Projects */}
-      <div className='relative mt-16 max-w-3xl pl-8'>
-        {/* Animated Vertical Line */}
-        <motion.div
-          className='absolute left-0 top-0 w-px bg-border-hairline'
-          initial={{ height: 0 }}
-          whileInView={{ height: "100%" }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-          viewport={{ once: true }}
-        />
-
-        <div className='flex flex-col gap-16'>
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.slug}
-              className='relative'
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                delay: index * 0.15,
-                duration: 0.5,
-              }}
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              {/* Timeline Dot */}
-              <span className='absolute -left-8 top-8 h-2.5 w-2.5 -translate-x-1/2 rounded-full border border-accent-brass bg-bg-base' />
-
-              {/* Project Card */}
-              <div className='group rounded-[20px] border border-border-hairline bg-bg-surface p-8 transition-all duration-300 hover:border-accent-olive/30 hover:-translate-y-1'>
-                <div className='flex items-start justify-between gap-6'>
-                  <div>
-                    <h3 className='text-2xl text-text-primary'>
-                      {project.name}
-                    </h3>
-
-                    <p className='mt-2 text-text-muted'>{project.tagline}</p>
-                  </div>
-
-                  {/* GitHub Link */}
+      {/* Grid Layout for Top Impact Projects - Zero heavy scrolling */}
+      <div className='mt-14 grid gap-6 md:grid-cols-3'>
+        {topProjects.map((project, index) => (
+          <motion.div
+            key={project.slug}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className='group flex flex-col justify-between glow-card rounded-[24px] p-6 transition-all hover:-translate-y-1'
+          >
+            <div>
+              <div className='flex items-start justify-between gap-4 mb-4'>
+                <h3 className='text-xl text-white font-medium'>
+                  {project.name}
+                </h3>
+                {project.liveUrl || project.github ? (
                   <a
-                    href={project.github}
+                    href={project.liveUrl || project.github}
                     target='_blank'
                     rel='noopener noreferrer'
-                    aria-label={`View ${project.name} on GitHub`}
-                    className='shrink-0 translate-x-2 text-xs font-mono text-accent-olive opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 hover:text-accent-brass'
+                    className='flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all hover:bg-rose-500 hover:border-rose-500 hover:text-white'
                   >
-                    GitHub →
+                    <ArrowUpRight size={16} />
                   </a>
-                </div>
-
-                {/* Description */}
-                <p className='mt-6 max-w-2xl text-sm leading-7 text-text-muted'>
-                  {project.description}
-                </p>
-
-                {/* Architecture & Live Links Footer */}
-                <div className='mt-6 flex items-center justify-between'>
-                  <a
-                    href='#architecture-gallery'
-                    className='text-xs font-mono text-accent-olive transition-colors hover:text-accent-brass'
-                  >
-                    View Architecture →
-                  </a>
-
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-xs font-mono text-text-muted opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:text-accent-brass'
-                    >
-                      Live Demo →
-                    </a>
-                  )}
-                </div>
+                ) : null}
               </div>
-            </motion.div>
-          ))}
-        </div>
+
+              <p className='text-xs font-mono text-rose-400 mb-3'>
+                {project.tagline}
+              </p>
+              <p className='text-xs leading-relaxed text-slate-400 line-clamp-3'>
+                {project.description}
+              </p>
+            </div>
+
+            <div className='mt-8 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400'>
+              <span className='text-cyan-400'>Production Ready</span>
+              <a
+                href={project.github}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='hover:text-white transition-colors'
+              >
+                GitHub →
+              </a>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

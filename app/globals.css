@@ -3,22 +3,21 @@
 @import "shadcn/tailwind.css";
 
 @theme inline {
-  /* Blueprint Minimalism Full Token Set */
-  --color-bg-base: #16140f;
-  --color-bg-surface: #211d16;
-  --color-bg-surface-raised: #2a2519;
-  --color-border-hairline: #3a352a;
-  --color-border-focus: #b8633c;
-  --color-text-primary: #f1ead9;
-  --color-text-muted: #9c9280;
-  --color-text-disabled: #635c4e;
-  --color-accent-terracotta: #b8633c;
-  --color-accent-terracotta-hover: #cc7248;
-  --color-accent-olive: #6e7350;
-  --color-accent-brass: #b99a3b;
-  --color-state-success: #7a8f5c;
-  --color-state-warning: #c79a4b;
-  --color-state-error: #b24b3e;
+  --color-bg-base: #0a0c10;
+  --color-bg-surface: #121721;
+  --color-bg-surface-raised: #1a2230;
+  --color-border-hairline: #2a3447;
+  --color-border-focus: #f43f5e;
+  --color-text-primary: #f8fafc;
+  --color-text-muted: #94a3b8;
+  --color-text-disabled: #475569;
+  --color-accent-terracotta: #f43f5e; /* Vibrant Rose / Coral */
+  --color-accent-terracotta-hover: #fb7185;
+  --color-accent-olive: #38bdf8; /* Electric Cyan accent */
+  --color-accent-brass: #f59e0b; /* Warm Amber */
+  --color-state-success: #10b981;
+  --color-state-warning: #f59e0b;
+  --color-state-error: #ef4444;
 }
 
 @layer base {
@@ -38,20 +37,11 @@
 }
 
 @layer utilities {
-  /* Blueprint Grid implementation (Graph Paper Style) */
   .blueprint-grid {
     background-image:
-      linear-gradient(
-        to right,
-        var(--color-border-hairline) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        var(--color-border-hairline) 1px,
-        transparent 1px
-      );
-    background-size: 20px 20px;
+      linear-gradient(to right, var(--color-border-hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-border-hairline) 1px, transparent 1px);
+    background-size: 24px 24px;
     mask-image: radial-gradient(circle at center, black, transparent 85%);
   }
 }

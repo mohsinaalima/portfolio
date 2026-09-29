@@ -9,6 +9,7 @@ import {
   type Easing,
 } from "framer-motion";
 import { PortraitFrame } from "@/app/components/portrait-frame";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const easeOut: Easing = [0.25, 0.1, 0.25, 1];
 
@@ -53,31 +54,66 @@ export function Hero() {
       id='top'
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      className='container-page grid min-h-[85vh] grid-cols-1 items-center gap-14 pt-28 lg:grid-cols-[58%_42%] lg:gap-10 lg:pt-20'
+      className='relative container-page grid min-h-[90vh] grid-cols-1 items-center gap-14 pt-32 lg:grid-cols-[58%_42%] lg:gap-10 lg:pt-20 overflow-hidden'
     >
+      {/* Background Neon Glow Effects (Oryzo Style) */}
+      <div className='absolute top-1/4 left-10 w-72 h-72 bg-rose-500/10 rounded-full blur-[120px] pointer-events-none' />
+      <div className='absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none' />
+
       <motion.div
         variants={container}
         initial='hidden'
         animate='show'
-        className='flex flex-col gap-7'
+        className='flex flex-col gap-7 z-10'
       >
+        <motion.div variants={item} className='w-fit'>
+          <span className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-mono text-cyan-400 backdrop-blur-md'>
+            <Sparkles size={13} className='text-rose-400' /> Available for
+            Full-Stack & AI Roles
+          </span>
+        </motion.div>
+
         <motion.h1
           variants={item}
-          className='text-[clamp(3.25rem,7.5vw,6rem)] font-normal leading-[0.98] tracking-tight text-text-primary'
+          className='text-[clamp(3rem,6.5vw,5.5rem)] font-normal leading-[1.05] tracking-tight text-white'
         >
-          Full-stack engineer
-          <br />
-          building systems that
-          <br />
-          <span className='text-accent-terracotta'>hold up under load.</span>
+          Full-stack engineer <br />
+          building systems that <br />
+          <span className='bg-gradient-to-r from-rose-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent'>
+            hold up under load.
+          </span>
         </motion.h1>
+
+        <motion.p
+          variants={item}
+          className='text-slate-400 text-base max-w-xl leading-relaxed'
+        >
+          Specialized in distributed architectures, scalable backends, and
+          agentic AI workflows. Turning complex bottlenecks into
+          production-grade performance.
+        </motion.p>
+
+        <motion.div variants={item} className='flex items-center gap-4 pt-2'>
+          <a
+            href='#selected-work'
+            className='inline-flex items-center gap-2 rounded-full bg-white text-slate-950 px-6 py-3 text-sm font-medium transition-all hover:bg-slate-200 shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+          >
+            Explore Systems <ArrowRight size={16} />
+          </a>
+          <a
+            href='#contact'
+            className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/10 hover:border-white/20'
+          >
+            Get in Touch
+          </a>
+        </motion.div>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className='block'
+        className='block z-10'
       >
         <PortraitFrame
           src='/profile.png'
