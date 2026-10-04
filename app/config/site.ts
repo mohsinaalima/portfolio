@@ -7,7 +7,7 @@ export const siteConfig = {
   email: "mohsinaalima2006@gmail.com",
   github: "https://github.com/mohsinaalima",
   linkedin: "https://www.linkedin.com/in/mohsina-alima-b43a83395/",
-  resumeHref: "/Resume.pdf",
+  resumeHref: "/public/Resume.pdf",
   availability: "Open to UI and software engineering opportunities",
 };
 
