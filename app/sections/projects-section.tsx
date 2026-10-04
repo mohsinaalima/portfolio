@@ -1,10 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowUpRight, Code2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/app/content/projects";
+import { Reveal } from "@/app/components/reveal";
+import { ProjectCover } from "@/app/components/project-cover";
 
-const featuredSlugs = ["devplot-ai", "picscale", "cortex"];
+const featuredSlugs = ["picscale", "cortex", "devplot-ai"];
 
 export function ProjectsSection() {
   const otherProjects = projects.filter(
@@ -12,63 +11,39 @@ export function ProjectsSection() {
   );
 
   return (
-    <section id="projects" className="section-y container-page overflow-visible">
-      <div className="max-w-xl">
-        <p className="font-mono-label flex items-center gap-2 text-sm tracking-widest text-accent-brass">
-          <Code2 size={14} /> More Projects
-        </p>
-        <h2 className="mt-4 text-4xl leading-[1.1] text-text-primary sm:text-5xl">
-          A few more things I’ve built.
-        </h2>
-        <p className="mt-4 text-sm text-slate-400">
-          A broader collection of full-stack applications and experiments.
-        </p>
-      </div>
+    <section id="projects" className="section-y container-page pt-0">
+      <Reveal className="section-heading">
+        <p className="eyebrow">More projects</p>
+        <h2 className="section-title">Other things I’ve built.</h2>
+      </Reveal>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {otherProjects.map((project, index) => (
-          <motion.article
-            key={project.slug}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-            className="glow-card group flex flex-col justify-between rounded-[24px] p-6 transition-all hover:-translate-y-1"
-          >
-            <div>
-              <div className="mb-4 flex items-start justify-between gap-4">
-                <h3 className="text-xl font-medium text-white">{project.name}</h3>
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${project.name} source code`}
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-all hover:border-rose-500 hover:bg-rose-500 hover:text-white"
-                  >
-                    <ArrowUpRight size={16} />
-                  </a>
-                )}
-              </div>
-              <p className="mb-3 font-mono text-xs text-rose-400">
-                {project.tagline}
-              </p>
-              <p className="text-xs leading-relaxed text-slate-400">
-                {project.description}
-              </p>
+          <Reveal key={project.slug} className="h-full" delay={index * 0.05}>
+          <article className="project-card h-full flex flex-col">
+            <ProjectCover project={project} />
+            <h3 className="text-lg font-semibold tracking-tight text-text-primary">{project.name}</h3>
+            <p className="mt-2 text-xs font-medium text-accent-primary">{project.tagline}</p>
+            <p className="mt-3 flex-1 text-sm leading-6 text-text-muted">{project.description}</p>
+            <ul className="mt-4 flex flex-wrap gap-1.5" aria-label={`${project.name} technologies`}>
+              {project.tech.map((technology) => (
+                <li key={technology} className="tech-chip">{technology}</li>
+              ))}
+            </ul>
+            <div className="mt-5 flex flex-wrap gap-4 text-xs">
+              {project.sourceUrl && (
+                <a className="text-link" href={project.sourceUrl} target="_blank" rel="noopener noreferrer">
+                  Source <ArrowUpRight size={13} />
+                </a>
+              )}
+              {project.liveUrl && (
+                <a className="text-link" href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                  Live demo <ArrowUpRight size={13} />
+                </a>
+              )}
             </div>
-
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-1 self-start text-xs text-cyan-400 transition-colors hover:text-white"
-              >
-                Visit project <ArrowUpRight size={13} />
-              </a>
-            )}
-          </motion.article>
+          </article>
+          </Reveal>
         ))}
       </div>
     </section>

@@ -1,29 +1,20 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { navItems, siteConfig } from "@/app/config/site";
 
 export function Nav() {
-  const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeHref, setActiveHref] = useState<string>("#top");
-  const lastY = useRef(0);
-  const prefersReducedMotion = useReducedMotion();
+  const [activeHref, setActiveHref] = useState("#top");
 
   useEffect(() => {
-    function onScroll() {
-      const y = window.scrollY;
-      setHidden(y > lastY.current && y > 80);
-      setScrolled(y > 24);
-      lastY.current = y;
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const handleScroll = () => setScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-  useEffect(() => {
-    const ids = ["top", ...navItems.map((item) => item.href.replace("#", ""))];
+    const sections = ["top", ...navItems.map((item) => item.href.slice(1))]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -31,80 +22,51 @@ export function Nav() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible) setActiveHref(`#${visible.target.id}`);
       },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+      { rootMargin: "-25% 0px -65% 0px", threshold: [0, 0.1, 0.5] },
     );
+    sections.forEach((section) => observer.observe(section));
 
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <motion.header
-      animate={{ y: hidden ? "-100%" : "0%" }}
-      transition={{
-        duration: prefersReducedMotion ? 0 : 0.3,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className='fixed inset-x-0 top-0 z-50 flex justify-center pt-6 px-4'
-    >
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-5">
       <nav
-        aria-label='Primary'
-        className={`flex items-center justify-between gap-6 rounded-full border border-white/10 px-6 py-3 backdrop-blur-xl transition-all duration-300 ${
+        aria-label="Primary"
+        className={`mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-5 gap-y-2 rounded-xl border px-4 py-3 transition-all duration-300 ease-out sm:px-5 ${
           scrolled
-            ? "bg-[#0a0c10]/85 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] border-white/15"
-            : "bg-[#0a0c10]/40"
+            ? "border-border-hairline bg-bg-base/95 shadow-lg shadow-black/10 backdrop-blur"
+            : "border-transparent bg-bg-base/75 backdrop-blur"
         }`}
       >
-        <a
-          href='#top'
-          className='font-mono text-xs font-bold tracking-wider text-white hover:text-rose-400 transition-colors'
-        >
-          MA<span className='text-rose-500'>.</span>
+        <a href="#top" className="shrink-0 text-sm font-semibold tracking-tight text-text-primary">
+          MA<span className="text-accent-primary">.</span>
+          <span className="sr-only">Mohsina Alima, home</span>
         </a>
 
-        <div className='h-4 w-px bg-white/10 mx-1 hidden md:block' />
-
-        <ul className='hidden items-center gap-6 md:flex'>
-          {navItems.map((item) => {
-            const isActive = activeHref === item.href;
-            return (
-              <li key={item.href} className='relative'>
-                <a
-                  href={item.href}
-                  className={`relative px-2 py-1 text-xs font-medium transition-colors ${
-                    isActive ? "text-white" : "text-slate-400 hover:text-white"
-                  }`}
-                >
-                  {item.label}
-                </a>
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.span
-                      layoutId='nav-active-indicator'
-                      className='absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-rose-500 to-cyan-400'
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-                </AnimatePresence>
-              </li>
-            );
-          })}
+        <ul className="order-3 flex w-full items-center gap-5 overflow-x-auto pb-0.5 text-xs sm:order-none sm:w-auto sm:gap-4 md:gap-5">
+          {navItems.map((item) => (
+            <li key={item.href} className="shrink-0">
+              <a
+                href={item.href}
+                aria-current={activeHref === item.href ? "location" : undefined}
+                className={`transition-colors hover:text-text-primary ${
+                  activeHref === item.href ? "text-accent-primary" : "text-text-muted"
+                }`}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
         </ul>
 
-        <a
-          href={siteConfig.resumeHref}
-          className='rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-white transition-all hover:border-rose-500/50 hover:bg-rose-500/10 hover:text-rose-400'
-        >
+        <a href={siteConfig.resumeHref} target="_blank" rel="noopener noreferrer" className="button-secondary min-h-9 px-3 py-1.5 text-xs">
           Resume
         </a>
       </nav>
-    </motion.header>
+    </header>
   );
 }

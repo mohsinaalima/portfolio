@@ -1,45 +1,24 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { Reveal } from "@/app/components/reveal";
 
 export function About() {
   return (
-    <section
-      id='about'
-      className='section-y container-page flex flex-col items-center overflow-visible'
-    >
-      <div className='w-full max-w-3xl text-center'>
-        <p className='font-mono text-xs tracking-widest text-cyan-400 uppercase'>
-          About Me
-        </p>
-
-        <h2 className='mt-4 text-3xl font-medium tracking-tight text-white sm:text-4xl'>
-          Engineering systems that hold up when complexity scales.
-        </h2>
-
-        <div className='mt-8 flex flex-col gap-6 text-base md:text-lg leading-relaxed text-slate-400'>
-          <p>
-            I got into engineering through the parts most people skip—the
-            complex database schema design, or the production deploy script
-            failing at 2 AM. Those deep infrastructure problems are what still
-            drive my curiosity.
-          </p>
-          <p>
-            Most of what I build stems from solving specific engineering
-            friction points: an AI tool that processes workflows client-side
-            without heavy servers, or a distributed image pipeline that never
-            blocks on slow jobs.
-          </p>
-          <p>
-            Currently, my focus is locked on{" "}
-            <span className='text-white font-medium'>
-              agentic AI systems and autonomous workflows
-            </span>{" "}
-            (like LangChain and LangGraph integration) designed to tame messy,
-            real-world unstructured inputs at scale.
+    <section id="about" className="section-y container-page">
+      <Reveal className="editorial-panel grid gap-5 md:grid-cols-12 md:gap-10">
+        <p className="eyebrow md:col-span-3">Who I am</p>
+        <div className="max-w-3xl md:col-span-9">
+          <h2 className="font-display text-3xl uppercase leading-[0.95] tracking-tight text-text-primary sm:text-4xl">
+            I’m a final-year Computer Science student focused on building useful,
+            dependable software.
+          </h2>
+          <p className="mt-5 text-sm leading-7 text-text-muted sm:text-base">
+            My projects span full-stack applications, distributed image
+            processing, and AI workflows. I’m especially interested in the
+            engineering decisions behind a product: how data moves through a
+            system, how failures are handled, and how the interface helps people
+            get useful work done.
           </p>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

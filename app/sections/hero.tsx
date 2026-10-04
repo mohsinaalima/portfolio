@@ -1,126 +1,136 @@
 "use client";
 
+import { useMotionValue, useReducedMotion, useSpring, motion } from "framer-motion";
+import Image from "next/image";
 import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useReducedMotion,
-  type Variants,
-  type Easing,
-} from "framer-motion";
-import { PortraitFrame } from "@/app/components/portrait-frame";
-import { Sparkles, ArrowRight } from "lucide-react";
-
-const easeOut: Easing = [0.25, 0.1, 0.25, 1];
-
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: easeOut,
-    },
-  },
-};
+  ArrowDown,
+  ArrowUpRight,
+  Braces,
+  FileText,
+  Layers3,
+  Mail,
+  MousePointer2,
+} from "lucide-react";
+import { siteConfig } from "@/app/config/site";
 
 export function Hero() {
-  const prefersReducedMotion = useReducedMotion();
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const parallaxX = useSpring(rawX, { stiffness: 60, damping: 20 });
-  const parallaxY = useSpring(rawY, { stiffness: 60, damping: 20 });
+  const reduceMotion = useReducedMotion();
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const rawTiltX = useMotionValue(0);
+  const rawTiltY = useMotionValue(0);
+  const portraitX = useSpring(pointerX, { stiffness: 120, damping: 24 });
+  const portraitY = useSpring(pointerY, { stiffness: 120, damping: 24 });
+  const tiltX = useSpring(rawTiltX, { stiffness: 120, damping: 24 });
+  const tiltY = useSpring(rawTiltY, { stiffness: 120, damping: 24 });
 
-  function handlePointerMove(e: React.PointerEvent<HTMLElement>) {
-    if (prefersReducedMotion) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    rawX.set(((e.clientX - rect.left) / rect.width - 0.5) * 16);
-    rawY.set(((e.clientY - rect.top) / rect.height - 0.5) * 16);
+  function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
+    if (reduceMotion || event.pointerType !== "mouse") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    pointerX.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 8);
+    pointerY.set(((event.clientY - bounds.top) / bounds.height - 0.5) * 8);
+    rawTiltX.set(((event.clientY - bounds.top) / bounds.height - 0.5) * -3);
+    rawTiltY.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 3);
   }
 
-  function handlePointerLeave() {
-    rawX.set(0);
-    rawY.set(0);
+  function resetPortraitPosition() {
+    pointerX.set(0);
+    pointerY.set(0);
+    rawTiltX.set(0);
+    rawTiltY.set(0);
   }
 
   return (
     <section
-      id='top'
+      id="top"
       onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
-      className='relative container-page grid min-h-[90vh] grid-cols-1 items-center gap-14 pt-32 lg:grid-cols-[58%_42%] lg:gap-10 lg:pt-20 overflow-hidden'
+      onPointerLeave={resetPortraitPosition}
+      className="hero-shell container-page grid min-h-[min(760px,100svh)] items-center gap-12 overflow-hidden pb-16 pt-32 md:grid-cols-[1.25fr_0.75fr] md:gap-16 md:pt-28"
     >
-      {/* Background Neon Glow Effects (Oryzo Style) */}
-      <div className='absolute top-1/4 left-10 w-72 h-72 bg-rose-500/10 rounded-full blur-[120px] pointer-events-none' />
-      <div className='absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none' />
-
       <motion.div
-        variants={container}
-        initial='hidden'
-        animate='show'
-        className='flex flex-col gap-7 z-10'
+        className="relative z-10 max-w-3xl"
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] }}
       >
-        <motion.div variants={item} className='w-fit'>
-          <span className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-mono text-cyan-400 backdrop-blur-md'>
-            <Sparkles size={13} className='text-rose-400' /> Available for
-            Full-Stack & AI Roles
-          </span>
-        </motion.div>
+        <p className="eyebrow mb-5">
+          <span className="h-2 w-2 rounded-full bg-state-success" />
+          UI ENGINEERING · INTERACTION · FULL-STACK
+        </p>
+        <h1 className="font-display text-[clamp(4.4rem,10vw,8.5rem)] uppercase leading-[0.76] tracking-[-0.035em] text-text-primary">
+          <span className="block">Mohsina</span>
+          <span className="block text-accent-primary">Alima</span>
+        </h1>
+        <p className="mt-6 border-l-4 border-accent-primary pl-3 text-lg font-bold uppercase tracking-wide text-text-primary sm:text-xl">
+          UI Developer <span className="text-text-disabled">/</span> Full-Stack Engineer
+        </p>
+        <p className="mt-4 max-w-xl text-sm leading-6 text-text-muted sm:text-base sm:leading-7">
+          I build interfaces where purposeful motion, visual clarity, and robust
+          engineering work together.
+        </p>
 
-        <motion.h1
-          variants={item}
-          className='text-[clamp(3rem,6.5vw,5.5rem)] font-normal leading-[1.05] tracking-tight text-white'
-        >
-          Full-stack engineer <br />
-          building systems that <br />
-          <span className='bg-gradient-to-r from-rose-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent'>
-            hold up under load.
-          </span>
-        </motion.h1>
-
-        <motion.p
-          variants={item}
-          className='text-slate-400 text-base max-w-xl leading-relaxed'
-        >
-          Specialized in distributed architectures, scalable backends, and
-          agentic AI workflows. Turning complex bottlenecks into
-          production-grade performance.
-        </motion.p>
-
-        <motion.div variants={item} className='flex items-center gap-4 pt-2'>
-          <a
-            href='#selected-work'
-            className='inline-flex items-center gap-2 rounded-full bg-white text-slate-950 px-6 py-3 text-sm font-medium transition-all hover:bg-slate-200 shadow-[0_0_20px_rgba(255,255,255,0.2)]'
-          >
-            Explore Systems <ArrowRight size={16} />
+        <div className="mt-9 flex flex-wrap items-center gap-3">
+          <a href="#selected-work" className="button-primary">
+            Explore my work <ArrowDown size={15} />
           </a>
-          <a
-            href='#contact'
-            className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/10 hover:border-white/20'
-          >
-            Get in Touch
+          <a href={siteConfig.resumeHref} target="_blank" rel="noopener noreferrer" className="button-secondary">
+            Resume <FileText size={15} />
           </a>
-        </motion.div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-text-muted">
+          <a className="text-link" href={siteConfig.github} target="_blank" rel="noopener noreferrer">
+            GitHub <ArrowUpRight size={14} />
+          </a>
+          <a className="text-link" href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn <ArrowUpRight size={14} />
+          </a>
+          <a className="text-link" href={`mailto:${siteConfig.email}`}>
+            Email <Mail size={14} />
+          </a>
+        </div>
+        <p className="mt-6 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide text-text-muted">
+          <span className="h-2 w-2 rounded-full bg-state-success" aria-hidden="true" />
+          {siteConfig.availability}
+        </p>
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
+        className="hero-visual relative z-10 mx-auto w-full max-w-[360px] md:justify-self-end"
+        style={{
+          x: reduceMotion ? 0 : portraitX,
+          y: reduceMotion ? 0 : portraitY,
+          rotateX: reduceMotion ? 0 : tiltX,
+          rotateY: reduceMotion ? 0 : tiltY,
+          transformPerspective: 900,
+        }}
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.985 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className='block z-10'
+        transition={{ duration: reduceMotion ? 0 : 0.45, delay: reduceMotion ? 0 : 0.08 }}
+        whileHover={reduceMotion ? undefined : { scale: 1.012 }}
       >
-        <PortraitFrame
-          src='/profile.png'
-          alt='Mohsina Alima'
-          parallaxX={parallaxX}
-          parallaxY={parallaxY}
-        />
+        <div className="float-panel float-panel-code" aria-hidden="true">
+          <span className="float-panel-icon"><Braces size={15} /></span>
+          <span><strong>interface.tsx</strong><small>crafted with intent</small></span>
+        </div>
+        <div className="absolute -inset-2 border-2 border-border-hairline bg-[#d6c5bf]" aria-hidden="true" />
+        <div className="group relative aspect-[4/5] overflow-hidden border-2 border-border-hairline bg-bg-surface">
+          <Image
+            src="/profile.png"
+            alt="Portrait of Mohsina Alima"
+            fill
+            priority
+            sizes="(max-width: 767px) 80vw, 340px"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+          />
+        </div>
+        <div className="float-panel float-panel-motion" aria-hidden="true">
+          <span className="float-panel-icon"><Layers3 size={15} /></span>
+          <span><strong>Motion system</strong><small>transitions · states · feel</small></span>
+        </div>
+        <div className="float-panel float-panel-cursor" aria-hidden="true">
+          <MousePointer2 size={15} /> UI / interaction
+        </div>
       </motion.div>
     </section>
   );

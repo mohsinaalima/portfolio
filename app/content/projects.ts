@@ -1,163 +1,88 @@
-export const projects = [
+export type Project = {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  sourceUrl: string;
+  liveUrl: string;
+  tech: string[];
+  image?: string;
+};
+
+export const projects: Project[] = [
   {
     slug: "kids-portal",
     name: "KidsPortal",
-    tagline: "Secure canvas & auth flow",
+    image: "/projects/kids.png",
+    tagline: "Secure canvas and authentication flows",
     description:
-      "A secure web application focused on interactive canvas experiences and authentication flows.",
-    github: "https://gitlab.com/zavianexus/kidsportal.git",
-    liveUrl: "", 
-    diagram: {
-      viewBox: "0 0 400 200",
-      nodes: [
-        { id: "1", x: 100, y: 50, label: "Canvas" },
-        { id: "2", x: 100, y: 150, label: "OAuth" },
-        { id: "3", x: 300, y: 100, label: "FastAPI" },
-      ],
-      edges: [
-        { id: "e1", path: "M 140 50 L 260 90" },
-        { id: "e2", path: "M 140 150 L 260 110" },
-      ],
-    },
+      "A web application focused on interactive canvas experiences and secure authentication flows.",
+    sourceUrl: "https://gitlab.com/zavianexus/kidsportal.git",
+    liveUrl: "",
+    tech: ["React", "FastAPI", "OAuth"],
   },
-
   {
     slug: "ai-resume-analyzer",
     name: "AI Resume Analyzer",
-    tagline: "Browser-only LLM pipeline",
+    image: "/projects/airesume.png",
+    tagline: "Browser-based LLM pipeline",
     description:
-      "An AI-powered resume analysis application that processes resumes and uses an LLM pipeline to provide useful insights.",
-    github: "https://github.com/mohsinaalima/ai-resume-analyzer",
+      "An AI-powered resume analysis application that processes resumes and uses an LLM pipeline to provide insights.",
+    sourceUrl: "https://github.com/mohsinaalima/ai-resume-analyzer",
     liveUrl: "https://ai-resume-analyzer-six-tawny.vercel.app/",
-    diagram: {
-      viewBox: "0 0 400 200",
-      nodes: [
-        { id: "1", x: 80, y: 100, label: "Upload" },
-        { id: "2", x: 200, y: 100, label: "Parser" },
-        { id: "3", x: 320, y: 100, label: "LLM" },
-      ],
-      edges: [
-        { id: "e1", path: "M 110 100 L 170 100" },
-        { id: "e2", path: "M 230 100 L 290 100" },
-      ],
-    },
+    tech: ["React", "LLM", "Document parsing"],
   },
-
   {
     slug: "picscale",
     name: "PicScale",
+    image: "/projects/picscale.png",
     tagline: "Distributed image pipeline",
     description:
       "A distributed image processing pipeline designed around browser, gateway, worker, and CDN components.",
-    github: "https://github.com/mohsinaalima/picscale",
+    sourceUrl: "https://github.com/mohsinaalima/picscale",
     liveUrl: "https://picscale-2.onrender.com/",
-    diagram: {
-      viewBox: "0 0 400 200",
-      nodes: [
-        { id: "1", x: 80, y: 100, label: "Browser" },
-        { id: "2", x: 200, y: 100, label: "Gateway" },
-        { id: "3", x: 320, y: 60, label: "Worker" },
-        { id: "4", x: 320, y: 140, label: "CDN" },
-      ],
-      edges: [
-        { id: "e1", path: "M 110 100 L 170 100" },
-        { id: "e2", path: "M 230 100 L 290 70" },
-        { id: "e3", path: "M 230 100 L 290 130" },
-      ],
-    },
+    tech: ["Node.js", "Workers", "CDN"],
   },
-
   {
     slug: "zaika-zone",
     name: "Zaika Zone",
-    tagline: "MERN Stack Restaurant App",
+    tagline: "MERN stack restaurant application",
     description:
       "A full-stack restaurant application built using the MERN stack with a client, server, and database architecture.",
-    github: "https://github.com/mohsinaalima/zaika-zone",
+    sourceUrl: "https://github.com/mohsinaalima/zaika-zone",
     liveUrl: "",
-    diagram: {
-      viewBox: "0 0 400 200",
-      nodes: [
-        { id: "1", x: 80, y: 100, label: "Client" },
-        { id: "2", x: 200, y: 100, label: "Server" },
-        { id: "3", x: 320, y: 100, label: "Database" },
-      ],
-      edges: [
-        { id: "e1", path: "M 110 100 L 170 100" },
-        { id: "e2", path: "M 230 100 L 290 100" },
-      ],
-    },
+    tech: ["MongoDB", "Express", "React", "Node.js"],
   },
-
   {
     slug: "aperture-fitness",
     name: "Aperture Fitness",
+    image: "/projects/aperture.png",
     tagline: "Offline-first fitness SaaS",
     description:
-      "Aperture Fitness is an offline-first fitness SaaS designed to help users create custom workout plans, log workouts, track sets, reps, weights, personal records, and analyze their training progress.",
-    github: "https://github.com/mohsinaalima/Aperture-Fitness.git",
+      "An offline-first fitness application for creating workout plans, logging workouts, tracking personal records, and reviewing training progress.",
+    sourceUrl: "https://github.com/mohsinaalima/Aperture-Fitness.git",
     liveUrl: "",
-    diagram: {
-      viewBox: "0 0 400 200",
-      nodes: [
-        { id: "1", x: 70, y: 100, label: "Next.js" },
-        { id: "2", x: 200, y: 100, label: "Fastify" },
-        { id: "3", x: 330, y: 60, label: "PostgreSQL" },
-        { id: "4", x: 330, y: 140, label: "Redis" },
-      ],
-      edges: [
-        { id: "e1", path: "M 105 100 L 165 100" },
-        { id: "e2", path: "M 235 100 L 295 70" },
-        { id: "e3", path: "M 235 100 L 295 130" },
-      ],
-    },
+    tech: ["Next.js", "TypeScript", "Fastify", "PostgreSQL", "Redis"],
   },
-
   {
     slug: "cortex",
     name: "Cortex",
-    tagline: "Containerized Second Brain RAG",
+    image: "/projects/cortex.png",
+    tagline: "Containerized second-brain RAG application",
     description:
-      "I built a containerized second brain RAG application that extracts, chunks, and embeds data from PDFs and URLs for semantic search.",
-    github: "https://github.com/mohsinaalima/Cortex.git",
+      "A containerized RAG application that extracts, chunks, and embeds data from PDFs and URLs for semantic search.",
+    sourceUrl: "https://github.com/mohsinaalima/Cortex.git",
     liveUrl: "",
-    diagram: {
-      viewBox: "0 0 400 200",
-      nodes: [
-        { id: "1", x: 70, y: 100, label: "PDF / URL" },
-        { id: "2", x: 190, y: 100, label: "FastAPI" },
-        { id: "3", x: 320, y: 60, label: "Qdrant" },
-        { id: "4", x: 320, y: 140, label: "OpenAI" },
-      ],
-      edges: [
-        { id: "e1", path: "M 115 100 L 155 100" },
-        { id: "e2", path: "M 225 100 L 285 70" },
-        { id: "e3", path: "M 225 100 L 285 130" },
-      ],
-    },
+    tech: ["FastAPI", "Qdrant", "OpenAI", "Docker"],
   },
-
   {
     slug: "devplot-ai",
     name: "DevPlot AI",
     tagline: "AI-powered developer productivity platform",
     description:
-      "DevPlot AI is an AI-powered developer productivity platform designed to help developers understand, analyze, and work with technical information more efficiently.",
-    github: "https://github.com/mohsinaalima/devpiolet_ai",
+      "An AI-powered developer productivity platform for understanding and working with technical information.",
+    sourceUrl: "https://github.com/mohsinaalima/devpiolet_ai",
     liveUrl: "",
-    diagram: {
-      viewBox: "0 0 400 200",
-      nodes: [
-        { id: "1", x: 70, y: 100, label: "Resources" },
-        { id: "2", x: 190, y: 100, label: "RAG" },
-        { id: "3", x: 320, y: 60, label: "Vector DB" },
-        { id: "4", x: 320, y: 140, label: "LLM" },
-      ],
-      edges: [
-        { id: "e1", path: "M 115 100 L 155 100" },
-        { id: "e2", path: "M 225 100 L 285 70" },
-        { id: "e3", path: "M 225 100 L 285 130" },
-      ],
-    },
+    tech: ["React", "FastAPI", "RAG", "Vector search"],
   },
 ];
