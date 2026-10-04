@@ -3,6 +3,7 @@ import { Footer } from "@/app/components/footer";
 
 import { Hero } from "@/app/sections/hero";
 import { SelectedWork } from "@/app/sections/selected-work";
+import { ProjectsSection } from "@/app/sections/projects-section";
 import { EngineeringPrinciples } from "@/app/sections/engineering-principles";
 import { CurrentlyBuilding } from "@/app/sections/currently-building";
 import { ArchitectureGallery } from "@/app/sections/architecture-gallery";
@@ -20,6 +21,7 @@ export default function Home() {
       <main className='flex flex-col'>
         <Hero />
         <SelectedWork />
+        <ProjectsSection />
         <ArchitectureGallery />
         {/* Clinch Metrics Bridge Internship & Welcome Letter Section */}
         <InternshipSection />

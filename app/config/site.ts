@@ -12,6 +12,7 @@ export const siteConfig = {
 
 export const navItems = [
   { label: "Selected Work", href: "#selected-work" },
+  { label: "Projects", href: "#projects" },
   { label: "Architecture", href: "#architecture-gallery" },
   { label: "Journey", href: "#journey" },
   { label: "Contact", href: "#contact" },
